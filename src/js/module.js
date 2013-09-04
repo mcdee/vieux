@@ -65,6 +65,6 @@ var opendaylight = angular.module('opendaylight', ['ngCookies', 'restangular', '
 
   $httpProvider.responseInterceptors.push(logsOutUserOn401);
   $httpProvider.defaults.withCredentials = true
-  RestangularProvider.setBaseUrl('http://15.185.101.203:8080/controller/nb/v2');
+  RestangularProvider.setBaseUrl('http://localhost:8080/controller/nb/v2');
 }]);
 
