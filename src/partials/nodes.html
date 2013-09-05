@@ -13,7 +13,7 @@
           <tr>
             <th scope="row">{{np.node.type}}/{{np.node.id}}</th>
             <td class="text-right"><a ui-sref="nodes.details({nodeId: np.node.id, nodeType: np.node.type})" class="btn btn-primary">ports</a>
-            <a ui-sref="flows.node({nodeType:'OF', nodeId:np.node.id})" class="btn btn-primary">flows</a>
+            <a ui-sref="flows.node({nodeType: np.node.type, nodeId:np.node.id})" class="btn btn-primary">flows</a>
             </td>
           </tr>
           <tr>
