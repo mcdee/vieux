@@ -20,7 +20,7 @@ opendaylight.factory('FlowSvc', ['NBApiSvc', function (NBApiSvc) {
     return svc.base(container).one('node', nodeType).one(nodeId)
   }
 
-  svc.nodeFlowUrl = function(container, nodeType, nodeId, name) {
+  svc.staticFlowUrl = function(container, nodeType, nodeId, name) {
     return svc.base(container).one('node', nodeType).one(nodeId).one('static-flow', name)
   }
 
