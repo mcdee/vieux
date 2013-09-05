@@ -49,6 +49,48 @@ opendaylight.factory('SwitchSvc', ['NBApiSvc', function (NBApiSvc) {
 }]);
 
 
+opendaylight.factory('StaticRouteSvc', ['NBApiSvc', function (NBApiSvc) {
+  var svc = {
+    base: function (container) {
+      return NBApiSvc.base('staticroute', container)
+    }
+  }
+
+  svc.routesUrl = function (container) {
+    return svc.base(container)
+  }
+
+  svc.routeUrl = function (container, name) {
+    return svc.base(container).one('route', name)
+  }
+
+  return svc
+}])
+
+
+opendaylight.factory('SubnetSvc', ['NBApiSvc', function (NBApiSvc) {
+  var svc = {
+    base: function (container) {
+      return NBApiSvc.base('subnet', container).all('subnet')
+    }
+  }
+
+  svc.subnetsUrl = function (container) {
+    return svc.base(container).all('all')
+  }
+
+  svc.subnetUrl = function (container, name) {
+    return svc.base(container).one('subnet', name)
+  }
+
+  svc.subnetPortsUrl = function (container, name) {
+    return svc.base(container).one('subnet', name).all('node-ports')
+  }
+
+  return svc
+}])
+
+
 opendaylight.factory('TopologySvc', ['NBApiSvc', 'SwitchSvc', function (NBApiSvc, SwitchSvc) {
   var svc = {
     base: function (container) {

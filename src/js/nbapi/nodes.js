@@ -1,24 +1,3 @@
-
-opendaylight.factory('SwitchSvc', ['NBApiSvc', function (NBApiSvc) {
-  var svc = {
-    base: function(container) {
-      return NBApiSvc.base('switch', container)
-    }
-  }
-
-  // URL for nodes
-  svc.nodesUrl = function (container) {
-    return svc.base(container).all('nodes')
-  }
-
-  // URL for a node
-  svc.nodeUrl = function(container, type, id) {
-    return svc.base(container).one('node', type).one(id)
-  }
-
-  return svc
-}]);
-
 opendaylight.controller('NodesCtrl', ['$scope', 'SwitchSvc', function($scope, SwitchSvc) {
   $scope.ncpData = {}
 

@@ -1,0 +1,17 @@
+<div class="col-md-4">
+
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Subnet</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="subnet in subnets.subnetConfig">
+          <td>{{subnet.name}}</td>
+          <td>{{subnet.subnet}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
