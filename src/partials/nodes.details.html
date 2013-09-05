@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table table-striped" ng-repeat="ncp in ncpData[$stateParams['nodeId']]">
+        <tr class="table table-striped" ng-repeat="ncp in ncpData.nodeConnectorProperties">
           <td>{{ncp.properties.name.value}}</td>
           <td>{{ncp.nodeconnector.type}}</td>
           <td>

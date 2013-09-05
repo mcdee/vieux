@@ -4,16 +4,7 @@ opendaylight.controller('NodesCtrl', ['$scope', 'SwitchSvc', function($scope, Sw
   // Fetch the nodes then fetch more info about each node
   SwitchSvc.nodesUrl().getList().then(function(npData) {
     $scope.npData = npData.nodeProperties;
-
-    angular.forEach(npData.nodeProperties, function (np) {
-      SwitchSvc.nodeUrl(null, np.node.type, np.node.id).get().then(
-        function(ncp, test) {
-          $scope.ncpData[np.node.id] = ncp.nodeConnectorProperties
-        }
-      )
-    })
-    //$scope.properties = data;
-  });
+  })
 }]);
 
 opendaylight.config(['$stateProvider', function($stateProvider) {
@@ -28,7 +19,8 @@ opendaylight.config(['$stateProvider', function($stateProvider) {
     views: {
       '': {
         templateUrl: 'partials/nodes.details.html',
-        controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
+        controller: ['$scope', '$stateParams', 'SwitchSvc', function ($scope, $stateParams, SwitchSvc) {
+          $scope.ncpData = SwitchSvc.nodeUrl(null, $stateParams.nodeType, $stateParams.nodeId).get()
         }]
       }
     }
