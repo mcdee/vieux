@@ -40,7 +40,7 @@ var opendaylight = angular.module('opendaylight', ['ngCookies', 'restangular', '
 }])
 
 // TODO: This should probably be changed to use broadcasts and present a user with a login form if auth is gone?
-.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, RestangularProvider) {
+.config(['$httpProvider', function ($httpProvider) {
   var logsOutUserOn401 = ['$q', '$location', function ($q, $location) {
     var success = function (response) {
       return response;
@@ -65,6 +65,6 @@ var opendaylight = angular.module('opendaylight', ['ngCookies', 'restangular', '
 
   $httpProvider.responseInterceptors.push(logsOutUserOn401);
   $httpProvider.defaults.withCredentials = true
-  RestangularProvider.setBaseUrl('http://localhost:8080/controller/nb/v2');
+
 }]);
 

@@ -16,5 +16,8 @@ angular.element(document).ready(function () {
         		endpoint_base : endpoint_base,
                 endpoint : endpoint_base + endpoint_path
             });
+        opendaylight.config(['RestangularProvider', function(RestangularProvider) {
+          RestangularProvider.setBaseUrl('http://15.185.101.203:8080/controller/nb/v2');
+        }])
         angular.bootstrap(document, ['opendaylight']);
     });
