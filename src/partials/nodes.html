@@ -8,17 +8,26 @@
     <div class="col-md-5">
       Displaying {{npData.length}} nodes<br/>
 
-      <div ng-repeat="np in npData" class="node">
-
-        <a ui-sref="nodes.details({nodeId: np.node.id, nodeType: np.node.type})">{{np.node.type}}/{{np.node.id}}</a>
-        <span class="glyphicon glyphicon-chevron-left" ng-show="$stateParams.nodeId == np.node.id"></span>
-        <br/>
-        Description: {{np.properties.description.value}} <br/>
-        Mac: {{np.properties.macAddress.value}}<br/>
-      </div>
+      <table class="table table-stripped">
+        <tbody ng-repeat="np in npData">
+          <tr>
+            <th scope="row">{{np.node.type}}/{{np.node.id}}</th>
+            <td class="text-right"><a ui-sref="nodes.details({nodeId: np.node.id, nodeType: np.node.type})" class="btn btn-primary">ports</a>
+            <a ui-sref="flows.node({nodeType: np.node.type, nodeId:np.node.id})" class="btn btn-primary">flows</a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Description : {{np.properties.description.value}}<br />
+              MAC : {{np.properties.macAddress.value}}
+              </dl>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <!-- Here is the details view-->
-    <div ui-view></div>
+    <div class="col-md-7">
+      <div ui-view></div>
+    </div>
   </div><!-- row -->
 </div>
