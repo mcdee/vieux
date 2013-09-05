@@ -1,3 +1,46 @@
+opendaylight.controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', function ($scope, $http, FlowSvc, SwitchSvc) {
+  // The current flow
+  $scope.flow = {installInHw: true};
+
+  // These are the available actions
+  $scope.actionOptions = {
+    'DROP': {},
+    'LOOPBACK': {}
+  }
+
+  $scope.actionActive = []
+
+  $scope.nodes = SwitchSvc.nodesUrl().getList();
+
+  // The current select nodes properties
+  $scope.selectNode = function() {
+    // Split the nodeString which contains nodeType and nodeId, this is used
+    // in $scope.submit() to construct the URL for the PUT
+    var node  = $scope.nodeString.split('/');
+
+    $scope.flow.node = {type: node[0], id: node[1]};
+
+    // Set nodeConnectorProperties for the selected node
+    delete $scope.flow.ingressPort;
+    $scope.ncpData = SwitchSvc.nodeUrl(null, $scope.flow.node.type, $scope.flow.node.id).get();
+  }
+
+  $scope.submit = function () {
+    console.log($scope.flow.node.type)
+    var url = FlowSvc.staticFlowUrl(null, $scope.flow.node.type, $scope.flow.node.id, $scope.flow.name)
+    url.customPUT($scope.flow)
+  }
+}])
+
+
+// Flow composition view controller
+opendaylight.controller('FlowCompositionCtrl', ['$scope', function ($scope) {
+  $scope.$watch('actionActive', function(newValue, oldValue, scope) {
+    $scope.flow.actions = newValue
+  });
+}])
+
+
 opendaylight.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('flows', {
     url: '/flows',
@@ -26,16 +69,12 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     views: {
       '': {
         templateUrl: 'partials/flows.create.html',
-        controller: ['$scope', 'FlowSvc', 'SwitchSvc', function ($scope, FlowSvc, SwitchSvc) {
-          $scope.nodes = SwitchSvc.nodesUrl().getList();
-
-          // The current select nodes properties
-          $scope.selectNode = function() {
-            var node = $scope.nodeString.split('/');
-            $scope.ncpData = SwitchSvc.nodeUrl(null, node[0], node[1]).get();
-          }
-        }]
-      }
+        controller: 'FlowCtrl'
+      },
+      'composer@flows.create': {
+        templateUrl: 'partials/flows.composer.html',
+        controller: 'FlowCompositionCtrl'
+      },
     }
   })
 
@@ -63,7 +102,7 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
       '': {
         templateUrl: 'partials/flows.details.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
-          FlowSvc.nodeFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
+          FlowSvc.staticFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
             function (data) {
               $scope.flow = data;
             }
