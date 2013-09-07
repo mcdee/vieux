@@ -30,7 +30,6 @@
           <li ng-class="{ active: $state.includes('flows') }"><a ui-sref="flows.list">Flows</a></li>
           <li ng-class="{ active: $state.includes('topology') }"><a ui-sref="topology">Topology</a></li>
           <li ng-class="{ active: $state.includes('network') }"><a ui-sref="network">Networking</a></li>
-          <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
         </ul>
 
         <!-- User menu -->
@@ -38,11 +37,20 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: {{user.username}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#users">Users</a></li>
-              <li><a href="#save">Save</a></li>
-              <li><a href="#logout">Logout</a></li>
+              <li><a ui-sref="user.preferences">Preferences</a></li>
+              <li><a ui-sref="logout">Logout</a></li>
             </ul>
           </li>
+          <!-- User menu -->
+
+          <!-- Help menu -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about()">About</a></li>
+            </ul>
+          </li>
+          <!-- End Help -->
         </ul>
       </div><!-- navbar-collable -->
     </div>
