@@ -8,9 +8,27 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/staticroute',
     views: {
       '': {
-        templateUrl: 'partials/network.staticroutes.html',
+        templateUrl: 'partials/staticroutes.html',
         controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
-          $scope.staticRoutes = StaticRouteSvc.routesUrl(null).getList();
+          $scope.data = StaticRouteSvc.routesUrl(null).getList();
+        }]
+      }
+    }
+  });
+
+  $stateProvider.state('network.staticroutes.create', {
+    url: '/create',
+    views: {
+      '@network': {
+        templateUrl: 'partials/staticroutes.create.html',
+        controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
+          $scope.submit = function () {
+            StaticRouteSvc.routeUrl(null, $scope.data.name).post('', $scope.data).then(
+              function (data) {
+                $scope.$state.go('network.staticroutes')
+              }
+            )
+          }
         }]
       }
     }
@@ -20,9 +38,27 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/subnet',
     views: {
       '': {
-        templateUrl: 'partials/network.subnets.html',
+        templateUrl: 'partials/subnets.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
-          $scope.subnets = SubnetSvc.subnetsUrl(null).getList()
+          $scope.data = SubnetSvc.subnetsUrl(null).getList()
+        }]
+      }
+    }
+  });
+
+  $stateProvider.state('network.subnets.create', {
+    url: '/create',
+    views: {
+      '@network': {
+        templateUrl: 'partials/subnets.create.html',
+        controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
+          $scope.submit = function () {
+            SubnetSvc.subnetUrl(null, $scope.data.name).post('', $scope.data).then(
+              function(data) {
+                $scope.$state.go('network.subnets')
+              }
+            )
+          }
         }]
       }
     }

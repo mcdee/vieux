@@ -71,12 +71,12 @@ opendaylight.factory('StaticRouteSvc', ['NBApiSvc', function (NBApiSvc) {
 opendaylight.factory('SubnetSvc', ['NBApiSvc', function (NBApiSvc) {
   var svc = {
     base: function (container) {
-      return NBApiSvc.base('subnet', container).all('subnet')
+      return NBApiSvc.base('subnet', container)
     }
   }
 
   svc.subnetsUrl = function (container) {
-    return svc.base(container).all('all')
+    return svc.base(container).one('subnet', 'all')
   }
 
   svc.subnetUrl = function (container, name) {
