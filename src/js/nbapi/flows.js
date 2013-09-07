@@ -26,9 +26,11 @@ opendaylight.controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', 
   }
 
   $scope.submit = function () {
-    console.log($scope.flow.node.type)
-    var url = FlowSvc.staticFlowUrl(null, $scope.flow.node.type, $scope.flow.node.id, $scope.flow.name)
-    url.customPUT($scope.flow)
+    FlowSvc.staticFlowUrl(null, $scope.flow.node.type, $scope.flow.node.id, $scope.flow.name)
+      .customPUT($scope.flow)
+      .then(function (data) {
+        $scope.$state.go('flows.list')
+      })
   }
 }])
 

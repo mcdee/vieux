@@ -1,5 +1,5 @@
 <div class="row">
-  <form role="form">
+  <form role="form" name="createForm">
     <div class="col-md-4">
       <div class="form-group">
         <label for="name">Name</label>
@@ -109,7 +109,8 @@
 
     <div ui-view="composer"></div>
 
-    <button class="btn btn-sm btn-primary" ng-click="submit()">Create</button>
+    <button-submit form="createForm" function="submit"></button-submit>
+    <button-cancel state='$state' to-state="flows.list"></button-cancel>
     </div>
   </form>
 
