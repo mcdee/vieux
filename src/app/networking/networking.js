@@ -1,4 +1,6 @@
-opendaylight.config(['$stateProvider', function ($stateProvider) {
+angular.module('opendaylight')
+
+.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('network', {
     templateUrl: 'partials/network.html',
     url: '/network'

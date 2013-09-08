@@ -1,12 +1,19 @@
-'use strict';
-
 var noAuthRoutes = ['/login'];
 
 // Make sure to include the `ui.router` module as a dependency
-var opendaylight = angular.module('opendaylight', ['ngCookies', 'restangular', 'ui.router', 'ui.select2']).run(
-  ['$rootScope', '$state', '$stateParams', '$location', 'config', 'AuthService',
-  function ($rootScope, $state, $stateParams, $location, config, AuthService) {
+var opendaylight = angular.module('opendaylight', [
+  'templates-app',
+  'templates-common',
+  'ngCookies',
+  'restangular',
+  'ui.route',
+  'ui.state',
+  'ui.select2',
+  'opendaylight.auth',
+  'opendaylight.nbapi',
+])
 
+.run(function ($rootScope, $state, $stateParams, $location, config, AuthService) {
     // Set the state and stateParams on the $rootScope to make it available anywhere
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -37,10 +44,10 @@ var opendaylight = angular.module('opendaylight', ['ngCookies', 'restangular', '
         $rootScope.authed = authed;
         $rootScope.user = AuthService.getUser();
       });
-}])
+})
 
 // TODO: This should probably be changed to use broadcasts and present a user with a login form if auth is gone?
-.config(['$httpProvider', function ($httpProvider) {
+.config('$httpProvider', function ($httpProvider) {
   var logsOutUserOn401 = ['$q', '$location', function ($q, $location) {
     var success = function (response) {
       return response;
@@ -64,7 +71,6 @@ var opendaylight = angular.module('opendaylight', ['ngCookies', 'restangular', '
   }];
 
   $httpProvider.responseInterceptors.push(logsOutUserOn401);
-  $httpProvider.defaults.withCredentials = true
+  $httpProvider.defaults.withCredentials = true;
 
-}]);
-
+});

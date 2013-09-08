@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('opendaylight').config(
   ['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
@@ -8,22 +6,22 @@ angular.module('opendaylight').config(
 
     $stateProvider.state('index', {
         url: '/index',
-        templateUrl: 'partials/index.html'
+        templateUrl: 'index.tpl.html'
     });
 
     $stateProvider.state('about', {
         url: '/about',
-        templateUrl: 'partials/about.html'
+        templateUrl: 'about.tpl.html'
     });
 
     $stateProvider.state('login', {
         url: '/login',
-        templateUrl: 'partials/login.html',
+        templateUrl: 'login.tpl.html',
         controller: 'LoginController'
     });
 
     $stateProvider.state('logout', {
         url: '/logout',
         controller: 'LogoutController'
-    })
+    });
 }]);
