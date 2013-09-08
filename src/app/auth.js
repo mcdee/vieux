@@ -1,4 +1,4 @@
-angular.module('opendaylight.auth', [])
+angular.module('odl.auth', [])
 
 /*
 Auth flow:
@@ -51,16 +51,16 @@ Auth flow:
 
   // Return the current user object
   factory.getUser = function () {
-    var user = $cookieStore.get('opendaylight.user') || null;
+    var user = $cookieStore.get('odl.user') || null;
     return user;
   };
 
   factory.setUser = function (user) {
-    $cookieStore.put('opendaylight.user', user);
+    $cookieStore.put('odl.user', user);
   };
 
   factory.unsetUser = function() {
-    $cookieStore.remove('opendaylight.user');
+    $cookieStore.remove('odl.user');
   };
 
   factory.login = function (user, pw, cb, eb) {

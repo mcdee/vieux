@@ -1,5 +1,3 @@
-'use strict';
-
 var LIVERELOAD_PORT = 9001;
 var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var mountFolder = function (connect, dir) {
@@ -91,12 +89,10 @@ module.exports = function (grunt) {
         },
         src: [
           '<%= vendor_files.js %>',
-          'module.prefix',
           '<%= build_dir %>/src/**/*.js',
           '<%= html2js.app.dest %>',
           '<%= html2js.common.dest %>',
           '<%= vendor_files.js %>',
-          'module.suffix'
         ],
         dest: '<%= compile_dir %>/assets/<%= pkg.name %>.js'
       }
@@ -355,7 +351,7 @@ module.exports = function (grunt) {
             return [
               mountFolder(connect, 'build'),
               lrSnippet
-            ]
+            ];
           }
         }
       },
@@ -506,7 +502,7 @@ module.exports = function (grunt) {
     }
   };
 
-  grunt.initConfig( grunt.util._.extend( taskConfig, userConfig ) )
+  grunt.initConfig( grunt.util._.extend( taskConfig, userConfig ) );
 
   /**
    * In order to make it safe to just compile or copy *only* what was changed,
@@ -532,7 +528,7 @@ module.exports = function (grunt) {
     'index:build',
   ]);
 
-  grunt.registerTask('live', ['build', 'connect:dev', 'open:dev', 'delta'])
+  grunt.registerTask('live', ['build', 'connect:dev', 'open:dev', 'delta']);
 
   /**
    * The `compile` task gets your app ready for deployment by concatenating and

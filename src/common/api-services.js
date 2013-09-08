@@ -5,7 +5,7 @@
     https://wiki..org/view/_Controller:REST_Reference_and_Authentication
 */
 
-angular.module('opendaylight.nbapi', [])
+angular.module('odl.nbapi', [])
 
 .factory('NBApiSvc', ['Restangular', function (Restangular) {
   var svc = {};

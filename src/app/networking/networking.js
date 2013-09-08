@@ -1,8 +1,8 @@
-angular.module('opendaylight')
+angular.module('odl.networking', [])
 
 .config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('network', {
-    templateUrl: 'partials/network.html',
+    templateUrl: 'network.tpl.html',
     url: '/network'
   });
 
@@ -10,7 +10,7 @@ angular.module('opendaylight')
     url: '/staticroute',
     views: {
       '': {
-        templateUrl: 'partials/staticroutes.html',
+        templateUrl: 'staticroutes.tpl.html',
         controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
           $scope.data = StaticRouteSvc.routesUrl(null).getList();
         }]
@@ -22,7 +22,7 @@ angular.module('opendaylight')
     url: '/create',
     views: {
       '@network': {
-        templateUrl: 'partials/staticroutes.create.html',
+        templateUrl: 'staticroutes.create.tpl.html',
         controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
           $scope.submit = function () {
             StaticRouteSvc.routeUrl(null, $scope.data.name).post('', $scope.data).then(
@@ -40,7 +40,7 @@ angular.module('opendaylight')
     url: '/subnet',
     views: {
       '': {
-        templateUrl: 'partials/subnets.html',
+        templateUrl: 'subnets.tpl.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
           $scope.data = SubnetSvc.subnetsUrl(null).getList()
         }]
@@ -52,7 +52,7 @@ angular.module('opendaylight')
     url: '/create',
     views: {
       '@network': {
-        templateUrl: 'partials/subnets.create.html',
+        templateUrl: 'subnets.create.tpl.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
           $scope.submit = function () {
             SubnetSvc.subnetUrl(null, $scope.data.name).post('', $scope.data).then(

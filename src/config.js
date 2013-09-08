@@ -17,5 +17,5 @@ angular.element(document).ready(function () {
         opendaylight.config(['RestangularProvider', function(RestangularProvider) {
           RestangularProvider.setBaseUrl(endpoint_base + endpoint_path);
         }]);
-        angular.bootstrap(document, ['opendaylight']);
+        angular.bootstrap(document, ['odl']);
     });

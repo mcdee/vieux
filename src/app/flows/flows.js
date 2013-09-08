@@ -1,4 +1,4 @@
-angular.module('opendaylight.flows', [])
+angular.module('odl.flows', [])
 
 .controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', function ($scope, $http, FlowSvc, SwitchSvc) {
   // The current flow
@@ -48,7 +48,7 @@ angular.module('opendaylight.flows', [])
 .config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('flows', {
     url: '/flows',
-    templateUrl: 'partials/flows.html',
+    templateUrl: 'flows/index.tpl.html',
     //template: '<ui-view></ui-view>',
     abstract: true
   });
@@ -58,7 +58,7 @@ angular.module('opendaylight.flows', [])
     url: '/list',
     views: {
       '': {
-        templateUrl: 'partials/flows.list.html',
+        templateUrl: 'flows/list.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
           FlowSvc.flowsUrl().getList().then(function (data) {
             $scope.flows = data.flowConfig;
@@ -72,11 +72,11 @@ angular.module('opendaylight.flows', [])
     url: '/create',
     views: {
       '': {
-        templateUrl: 'partials/flows.create.html',
+        templateUrl: 'flows/create.tpl.html',
         controller: 'FlowCtrl'
       },
       'composer@flows.create': {
-        templateUrl: 'partials/flows.composer.html',
+        templateUrl: 'flows/composer.tpl.html',
         controller: 'FlowCompositionCtrl'
       },
     }
@@ -87,7 +87,7 @@ angular.module('opendaylight.flows', [])
     url: '/{nodeType}/{nodeId}',
     views: {
       '': {
-        templateUrl: 'partials/flows.node.html',
+        templateUrl: 'flows/node.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
           FlowSvc.nodeFlowsUrl('default', $scope.$stateParams.nodeType, $scope.$stateParams.nodeId).getList().then(
             function (data) {
@@ -104,7 +104,7 @@ angular.module('opendaylight.flows', [])
     url: '/{nodeType}/{nodeId}/{flowName}',
     views: {
       '': {
-        templateUrl: 'partials/flows.details.html',
+        templateUrl: 'flows/details.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
           FlowSvc.staticFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
             function (data) {
@@ -121,7 +121,7 @@ angular.module('opendaylight.flows', [])
     url: '/edit',
     views: {
       '@flows.details': {
-        templateUrl: 'partials/flows.edit.html',
+        templateUrl: 'flows/edit.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
         }]
       }

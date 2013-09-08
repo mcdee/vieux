@@ -20,7 +20,8 @@ module.exports = {
    * app's unit tests.
    */
   app_files: {
-    js: [ 'src/app/*.js', 'src/common/*.js', 'src/config.js', '!src/**/*.spec.js' ],
+    //js: [ 'src/app/*.js', 'src/common/*.js', 'src/config.js', '!src/**/*.spec.js' ],
+    js: ['src/**/*.js', 'src/config.js', '!src/**/*.spec.js'],
     jsunit: [ 'src/**/*.spec.js' ],
 
     coffee: [ 'src/**/*.coffee', '!src/**/*.spec.coffee' ],
@@ -52,15 +53,14 @@ module.exports = {
       'vendor/jquery/jquery.min.js',
       'vendor/bootstrap/dist/js/bootstrap.min.js',
       'vendor/underscore/underscore-min.js',
+      'vendor/underscore.string/dist/underscore.string.min.js',
       'vendor/select2/select2.js',
       'vendor/d3/d3.min.js',
-      'vendor/underscore.string/dist/underscore.string.min.js',
       'vendor/angular/index.js',
       'vendor/angular-cookies/index.js',
       'vendor/angular-route/index.js',
       'vendor/angular-ui-router/index.js',
       'vendor/angular-ui-select2/index.js',
-      'vendor/angular/index.js',
       'vendor/restangular/dist/restangular.min.js'
     ],
     css: [

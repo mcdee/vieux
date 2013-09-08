@@ -1,9 +1,9 @@
-angular.module('opendaylight.topology', [])
+angular.module('odl.topology', [])
 
 .config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('topology', {
     url: '/topology',
-    templateUrl: 'topology.tpl.html',
+    templateUrl: 'topology/topology.tpl.html',
     controller: ['$scope', 'TopologySvc', 'SwitchSvc', function ($scope, TopologySvc, SwitchSvc) {
       $scope.createTopology = function() {
         TopologySvc.getTopologyData(null, function(data) {

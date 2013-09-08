@@ -1,4 +1,4 @@
-angular.module('opendaylight.nodes', [])
+angular.module('odl.nodes', [])
 
 .controller('NodesCtrl', ['$scope', 'SwitchSvc', function($scope, SwitchSvc) {
   $scope.ncpData = {};
@@ -12,7 +12,7 @@ angular.module('opendaylight.nodes', [])
 .config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('nodes', {
     url: '/nodes',
-    templateUrl: 'partials/nodes.html',
+    templateUrl: 'nodes/tpl.html',
     controller: 'NodesCtrl'
   });
 
@@ -20,7 +20,7 @@ angular.module('opendaylight.nodes', [])
     url: '/{nodeType}/{nodeId}',
     views: {
       '': {
-        templateUrl: 'partials/nodes.details.html',
+        templateUrl: 'nodes/details.tpl.html',
         controller: ['$scope', '$stateParams', 'SwitchSvc', function ($scope, $stateParams, SwitchSvc) {
           $scope.ncpData = SwitchSvc.nodeUrl(null, $stateParams.nodeType, $stateParams.nodeId).get();
         }]

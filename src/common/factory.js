@@ -4,7 +4,7 @@ Anything that doesn't go into a seperate file (as in is deemed too big for here)
 Examples: Auth logic
 */
 
-angular.module('opendaylight', [])
+angular.module('odl.services', [])
 
 .factory('NBApiStatSvc', ['$http', 'config', function ($http, config) {
   var svc = {};

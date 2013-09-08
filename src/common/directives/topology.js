@@ -4,7 +4,7 @@ Directive to create a simple topology
 Partially based on https://github.com/fredhsu/odl-scripts/tree/master/python/ from Fred Hsu and many angular bits.
 */
 
-angular.module('opendaylight')
+angular.module('odl.directives.topology', [])
 
 .directive('topologySimple', function() {
   // constants

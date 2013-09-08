@@ -1,4 +1,4 @@
-angular.module('opendaylight')
+angular.module('odl.directives.general', [])
 
 .directive('stateIcon', function() {
     return {
