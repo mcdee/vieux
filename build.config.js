@@ -65,7 +65,14 @@ module.exports = {
     ],
     css: [
       'vendor/bootstrap/dist/css/bootstrap.min.css',
-      'vendor/select2/select2.css'
+      'vendor/select2/select2.css',
+      'vendor/select2-bootstrap-css/select2-bootstrap.css'
+    ],
+    assets: [
+      'vendor/**/*.gif',
+      'vendor/**/*.jpg',
+      'vendor/**/*.png',
+      'vendor/**/*.woff'
     ]
   },
 };

@@ -23,7 +23,7 @@ angular.module('odl.directives.topology', [])
         .attr('height', height);
 
       $scope.$watch('topologyData', function (newVal, odlVal) {
-        svg.selectAll('*').remove()
+        svg.selectAll('*').remove();
 
         if(!newVal) {
             return;
@@ -84,7 +84,7 @@ angular.module('odl.directives.topology', [])
         node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
         });
-      })
+      });
     }
   };
 });

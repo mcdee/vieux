@@ -2,7 +2,7 @@ angular.module('odl.networking', [])
 
 .config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('network', {
-    templateUrl: 'network/network.tpl.html',
+    templateUrl: 'network/index.tpl.html',
     url: '/network'
   });
 
@@ -27,10 +27,10 @@ angular.module('odl.networking', [])
           $scope.submit = function () {
             StaticRouteSvc.routeUrl(null, $scope.data.name).post('', $scope.data).then(
               function (data) {
-                $scope.$state.go('network.staticroutes')
+                $scope.$state.go('network.staticroutes');
               }
-            )
-          }
+            );
+          };
         }]
       }
     }
@@ -42,7 +42,7 @@ angular.module('odl.networking', [])
       '': {
         templateUrl: 'network/subnets.tpl.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
-          $scope.data = SubnetSvc.subnetsUrl(null).getList()
+          $scope.data = SubnetSvc.subnetsUrl(null).getList();
         }]
       }
     }
@@ -57,13 +57,13 @@ angular.module('odl.networking', [])
           $scope.submit = function () {
             SubnetSvc.subnetUrl(null, $scope.data.name).post('', $scope.data).then(
               function(data) {
-                $scope.$state.go('network.subnets')
+                $scope.$state.go('network.subnets');
               }
-            )
-          }
+            );
+          };
         }]
       }
     }
   });
 
-}])
+}]);

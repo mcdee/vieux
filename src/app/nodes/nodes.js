@@ -12,7 +12,7 @@ angular.module('odl.nodes', [])
 .config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('nodes', {
     url: '/nodes',
-    templateUrl: 'nodes/tpl.html',
+    templateUrl: 'nodes/index.tpl.html',
     controller: 'NodesCtrl'
   });
 
