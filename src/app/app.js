@@ -38,11 +38,14 @@ var opendaylight = angular.module('odl', [
   };
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+
     if (!isClean($location.url()) && !$rootScope.authed) {
+      ev.preventDefault();
       console.log("Forward to login - " + $location.url());
-      $location.path('login');
+      $location.path('/login');
       return;
     }
+
   });
 
   $rootScope.$watch(
