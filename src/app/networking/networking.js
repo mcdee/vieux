@@ -2,7 +2,7 @@ angular.module('odl.networking', [])
 
 .config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('network', {
-    templateUrl: 'network.tpl.html',
+    templateUrl: 'network/network.tpl.html',
     url: '/network'
   });
 
@@ -10,7 +10,7 @@ angular.module('odl.networking', [])
     url: '/staticroute',
     views: {
       '': {
-        templateUrl: 'staticroutes.tpl.html',
+        templateUrl: 'network/staticroutes.tpl.html',
         controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
           $scope.data = StaticRouteSvc.routesUrl(null).getList();
         }]
@@ -22,7 +22,7 @@ angular.module('odl.networking', [])
     url: '/create',
     views: {
       '@network': {
-        templateUrl: 'staticroutes.create.tpl.html',
+        templateUrl: 'network/staticroutes.create.tpl.html',
         controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
           $scope.submit = function () {
             StaticRouteSvc.routeUrl(null, $scope.data.name).post('', $scope.data).then(
@@ -40,7 +40,7 @@ angular.module('odl.networking', [])
     url: '/subnet',
     views: {
       '': {
-        templateUrl: 'subnets.tpl.html',
+        templateUrl: 'network/subnets.tpl.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
           $scope.data = SubnetSvc.subnetsUrl(null).getList()
         }]
@@ -52,7 +52,7 @@ angular.module('odl.networking', [])
     url: '/create',
     views: {
       '@network': {
-        templateUrl: 'subnets.create.tpl.html',
+        templateUrl: 'network/subnets.create.tpl.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
           $scope.submit = function () {
             SubnetSvc.subnetUrl(null, $scope.data.name).post('', $scope.data).then(
