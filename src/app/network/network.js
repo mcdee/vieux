@@ -1,6 +1,8 @@
-opendaylight.config(['$stateProvider', function ($stateProvider) {
+angular.module('odl.networking', [])
+
+.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('network', {
-    templateUrl: 'partials/network.html',
+    templateUrl: 'network/index.tpl.html',
     url: '/network'
   });
 
@@ -8,7 +10,7 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/staticroute',
     views: {
       '': {
-        templateUrl: 'partials/staticroutes.html',
+        templateUrl: 'network/staticroutes.tpl.html',
         controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
           $scope.data = StaticRouteSvc.routesUrl(null).getList();
         }]
@@ -20,15 +22,15 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/create',
     views: {
       '@network': {
-        templateUrl: 'partials/staticroutes.create.html',
+        templateUrl: 'network/staticroutes.create.tpl.html',
         controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
           $scope.submit = function () {
             StaticRouteSvc.routeUrl(null, $scope.data.name).post('', $scope.data).then(
               function (data) {
-                $scope.$state.go('network.staticroutes')
+                $scope.$state.go('network.staticroutes');
               }
-            )
-          }
+            );
+          };
         }]
       }
     }
@@ -38,9 +40,9 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/subnet',
     views: {
       '': {
-        templateUrl: 'partials/subnets.html',
+        templateUrl: 'network/subnets.tpl.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
-          $scope.data = SubnetSvc.subnetsUrl(null).getList()
+          $scope.data = SubnetSvc.subnetsUrl(null).getList();
         }]
       }
     }
@@ -50,18 +52,18 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/create',
     views: {
       '@network': {
-        templateUrl: 'partials/subnets.create.html',
+        templateUrl: 'network/subnets.create.tpl.html',
         controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
           $scope.submit = function () {
             SubnetSvc.subnetUrl(null, $scope.data.name).post('', $scope.data).then(
               function(data) {
-                $scope.$state.go('network.subnets')
+                $scope.$state.go('network.subnets');
               }
-            )
-          }
+            );
+          };
         }]
       }
     }
   });
 
-}])
+}]);

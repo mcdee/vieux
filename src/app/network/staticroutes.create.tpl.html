@@ -6,8 +6,8 @@
     </div>
 
     <div class="form-group">
-      <label for="staticroute">Network / Mask</label>
-      <input type="text" class="form-control input-sm control-label" ng-model="data.staticRoute" id="staticRoute" placeholder="Network / Mask - Example: 10.0.0.0/24" required>
+      <label for="prefix">Network / Mask</label>
+      <input type="text" class="form-control input-sm control-label" ng-model="data.prefix" id="prefix" placeholder="Network / Mask - Example: 10.0.0.0/24" required>
     </div>
 
 
@@ -16,7 +16,7 @@
       <input type="text" class="form-control input-sm control-label" ng-model="data.nextHop" id="name" placeholder="Next Hop - Example: 10.0.0.1" required>
     </div>
 
-    <button-submit form='createStaticRoute' submit-func="submit"></button-submit>
+    <button-submit form='createStaticRoute' function="submit"></button-submit>
     <button-cancel state='$state' to-state="network.staticroutes"></button-cancel>
   </form>
 

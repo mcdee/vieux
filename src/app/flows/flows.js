@@ -1,4 +1,6 @@
-opendaylight.controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', function ($scope, $http, FlowSvc, SwitchSvc) {
+angular.module('odl.flows', [])
+
+.controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', function ($scope, $http, FlowSvc, SwitchSvc) {
   // The current flow
   $scope.flow = {installInHw: true};
 
@@ -6,9 +8,9 @@ opendaylight.controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', 
   $scope.actionOptions = {
     'DROP': {},
     'LOOPBACK': {}
-  }
+  };
 
-  $scope.actionActive = []
+  $scope.actionActive = [];
 
   $scope.nodes = SwitchSvc.nodesUrl().getList();
 
@@ -23,44 +25,44 @@ opendaylight.controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', 
     // Set nodeConnectorProperties for the selected node
     delete $scope.flow.ingressPort;
     $scope.ncpData = SwitchSvc.nodeUrl(null, $scope.flow.node.type, $scope.flow.node.id).get();
-  }
+  };
 
   $scope.submit = function () {
     FlowSvc.staticFlowUrl(null, $scope.flow.node.type, $scope.flow.node.id, $scope.flow.name)
       .customPUT($scope.flow)
       .then(function (data) {
-        $scope.$state.go('flows.list')
-      })
-  }
+        $scope.$state.go('flows.list');
+      });
+  };
 }])
 
 
 // Flow composition view controller
-opendaylight.controller('FlowCompositionCtrl', ['$scope', function ($scope) {
+.controller('FlowCompositionCtrl', ['$scope', function ($scope) {
   $scope.$watch('actionActive', function(newValue, oldValue, scope) {
-    $scope.flow.actions = newValue
+    $scope.flow.actions = newValue;
   });
 }])
 
 
-opendaylight.config(['$stateProvider', function ($stateProvider) {
+.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('flows', {
     url: '/flows',
-    templateUrl: 'partials/flows.html',
+    templateUrl: 'flows/index.tpl.html',
     //template: '<ui-view></ui-view>',
     abstract: true
-  })
+  });
 
   // List all flows - independant of node.
   $stateProvider.state('flows.list', {
     url: '/list',
     views: {
       '': {
-        templateUrl: 'partials/flows.list.html',
+        templateUrl: 'flows/list.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
           FlowSvc.flowsUrl().getList().then(function (data) {
             $scope.flows = data.flowConfig;
-          })
+          });
         }]
       }
     }
@@ -70,28 +72,28 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/create',
     views: {
       '': {
-        templateUrl: 'partials/flows.create.html',
+        templateUrl: 'flows/create.tpl.html',
         controller: 'FlowCtrl'
       },
       'composer@flows.create': {
-        templateUrl: 'partials/flows.composer.html',
+        templateUrl: 'flows/composer.tpl.html',
         controller: 'FlowCompositionCtrl'
       },
     }
-  })
+  });
 
   // List the flows on a node
   $stateProvider.state('flows.node', {
     url: '/{nodeType}/{nodeId}',
     views: {
       '': {
-        templateUrl: 'partials/flows.node.html',
+        templateUrl: 'flows/node.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
           FlowSvc.nodeFlowsUrl('default', $scope.$stateParams.nodeType, $scope.$stateParams.nodeId).getList().then(
             function (data) {
               $scope.flows = data.flowConfig;
             }
-          )
+          );
         }]
       }
     }
@@ -102,13 +104,13 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/{nodeType}/{nodeId}/{flowName}',
     views: {
       '': {
-        templateUrl: 'partials/flows.details.html',
+        templateUrl: 'flows/details.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
           FlowSvc.staticFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
             function (data) {
               $scope.flow = data;
             }
-          )
+          );
         }]
       }
     }
@@ -119,10 +121,10 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     url: '/edit',
     views: {
       '@flows.details': {
-        templateUrl: 'partials/flows.edit.html',
+        templateUrl: 'flows/edit.tpl.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
         }]
       }
     }
   });
-}])
+}]);

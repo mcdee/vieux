@@ -1,4 +1,4 @@
-angular.module('opendaylight')
+angular.module('odl.auth', [])
 
 /*
 Auth flow:
@@ -27,10 +27,10 @@ Auth flow:
 
   $scope.success = function (response) {
     $location.path('/');
-  }
+  };
 
   $scope.error = function (response) {
-  }
+  };
 }])
 
 .controller('LogoutController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
@@ -51,17 +51,17 @@ Auth flow:
 
   // Return the current user object
   factory.getUser = function () {
-    var user = $cookieStore.get('opendaylight.user') || null;
+    var user = $cookieStore.get('odl.user') || null;
     return user;
-  }
+  };
 
   factory.setUser = function (user) {
-    $cookieStore.put('opendaylight.user', user)
-  }
+    $cookieStore.put('odl.user', user);
+  };
 
   factory.unsetUser = function() {
-    $cookieStore.remove('opendaylight.user');
-  }
+    $cookieStore.remove('odl.user');
+  };
 
   factory.login = function (user, pw, cb, eb) {
     factory.setBasic(user, pw);
@@ -69,7 +69,7 @@ Auth flow:
     $http.get(config.endpoint + '/flow/default')
       .success(function (data, status, headers, config) {
         factory.setUser({username: user});
-        factory.unsetBasic()
+        factory.unsetBasic();
         cb(data);
       })
       .error(function (resp) {
@@ -81,7 +81,7 @@ Auth flow:
     factory.unsetBasic();
     factory.unsetUser();
     cb();
-  }
+  };
 
   // Set Authorization header to username + password
   factory.setBasic = function (user, pw) {
@@ -93,9 +93,9 @@ Auth flow:
 
   factory.unsetBasic = function () {
     if ($http.defaults.headers.common.Authorization !== null) {
-      delete $http.defaults.headers.common.Authorization
+      delete $http.defaults.headers.common.Authorization;
     }
-  }
+  };
 
   return factory;
 }])
@@ -108,7 +108,7 @@ Auth flow:
     'wxyz0123456789+/' +
     '=';
   return {
-	  encode: function (input) {
+    encode: function (input) {
       var output = "";
       var chr1, chr2, chr3 = "";
       var enc1, enc2, enc3, enc4 = "";
@@ -140,9 +140,8 @@ Auth flow:
       } while (i < input.length);
 
       return output;
-	  },
-
-	  decode: function (input) {
+    },
+    decode: function (input) {
       var output = "";
       var chr1, chr2, chr3 = "";
       var enc1, enc2, enc3, enc4 = "";
@@ -185,4 +184,4 @@ Auth flow:
       return output;
     }
   };
-})
+});

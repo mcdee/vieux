@@ -4,7 +4,7 @@ Directive to create a simple topology
 Partially based on https://github.com/fredhsu/odl-scripts/tree/master/python/ from Fred Hsu and many angular bits.
 */
 
-angular.module('opendaylight')
+angular.module('odl.directives.topology', [])
 
 .directive('topologySimple', function() {
   // constants
@@ -23,7 +23,7 @@ angular.module('opendaylight')
         .attr('height', height);
 
       $scope.$watch('topologyData', function (newVal, odlVal) {
-        svg.selectAll('*').remove()
+        svg.selectAll('*').remove();
 
         if(!newVal) {
             return;
@@ -84,7 +84,7 @@ angular.module('opendaylight')
         node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
         });
-      })
+      });
     }
   };
 });

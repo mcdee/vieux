@@ -1,5 +1,3 @@
-'use strict';
-
 /*
 NOTE: Configure these values before doing any grunt task to build the application javascript.
 These are available from the root scope and elsewhere.
@@ -13,11 +11,11 @@ var endpoint_base = endpoint_proto + '://' + endpoint_host + ':' + endpoint_port
 
 angular.element(document).ready(function () {
         opendaylight.value('config', {
-        		endpoint_base : endpoint_base,
+                endpoint_base : endpoint_base,
                 endpoint : endpoint_base + endpoint_path
             });
         opendaylight.config(['RestangularProvider', function(RestangularProvider) {
           RestangularProvider.setBaseUrl(endpoint_base + endpoint_path);
-        }])
-        angular.bootstrap(document, ['opendaylight']);
+        }]);
+        angular.bootstrap(document, ['odl']);
     });
