@@ -524,6 +524,8 @@ module.exports = function (grunt) {
   grunt.renameTask( 'watch', 'delta' );
   grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
 
+  grunt.registerTask('live', ['build', 'connect:dev', 'open:dev', 'karma:unit', 'delta']);
+
   /**
    * The default task is to build and compile.
    */
@@ -535,10 +537,8 @@ module.exports = function (grunt) {
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'coffeelint', 'coffee','recess:build',
     'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'copy:build_vendorassets',
-    'index:build',
+    'index:build', 'karmaconfig', 'karma:continuous'
   ]);
-
-  grunt.registerTask('live', ['build', 'connect:dev', 'open:dev', 'delta']);
 
   /**
    * The `compile` task gets your app ready for deployment by concatenating and
