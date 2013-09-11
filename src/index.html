@@ -78,10 +78,8 @@
 
       <div id="right" ui-view="right">right</div>
     </div>
+    <div ng-if="!authed" ui-view></div>
   </div>
-
-  <div ng-if="!authed" ui-view></div>
-
 
   <!--
   <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
