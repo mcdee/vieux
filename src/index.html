@@ -56,8 +56,12 @@
     </div>
   </div><!-- menu -->
 
-  <div id="main" ng-if="authed">
-      <div id="left" ui-view="left">left</div>
+  <div id="container">
+    <div id="main" ng-if="authed">
+      <div id="left" ui-view="left">left<br/>
+        <span>Current state path: {{$state.current.name}}</span><br/>
+        <span>stateParams: {{$stateParams}}</span>
+      </div>
 
       <!-- This is the "main" content div, it holds a contextual menu for the current view on the top and shows useful things underneith-->
       <div id="center">
@@ -73,14 +77,15 @@
       </div>
 
       <div id="right" ui-view="right">right</div>
+    </div>
   </div>
 
   <div ng-if="!authed" ui-view></div>
 
 
+  <!--
   <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
-    <span>Current state path: {{$state.current.name}}</span>
-    <span>stateParams: {{$stateParams}}</span>
   </div>
+  -->
 </body>
 </html>

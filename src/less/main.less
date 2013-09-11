@@ -1,12 +1,9 @@
 // vars
-@bodyOffset: 20px;
+@bodyOffset: 30px;
 
 // style
 body, html {
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
   height: 100%;
-  overflow: hidden;
 }
 
 #menu {
@@ -33,6 +30,7 @@ body, html {
   }
 }
 
+/*
 #footer {
   min-height: @bodyOffset;
   border-top: 1px solid #ddd;
@@ -44,6 +42,7 @@ body, html {
     padding: 0px 0px 0px 20px;
   }
 }
+*/
 
 #submenu {
   min-height: 30px;
@@ -59,41 +58,53 @@ body, html {
   }
 }
 
+#container {
+  @padding: 7px;
+  @containerOffset: @padding;
+  background-image: linear-gradient(to bottom, #eee, #ccc);
 
-#main {
-  margin: 0 auto;
-  height: 100%;
-  padding: 0px 0;
-
-  /*-moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-*/
-  #left, #center, #right {
+  position: absolute;
+  top: @bodyOffset+7px;
+  bottom: @containerOffset;
+  left: @containerOffset;
+  right: @containerOffset;
+  //border: 1px dotted #000;
+  border-radius: 7px;
+  padding: @padding;
+  #main {
+    @mainWidth: 75%;
+    //border: 1px dotted #000;
+    border-radius: 7px;
+    padding: @padding;
     height: 100%;
-    min-height: 100%;
-    overflow: scroll;
-  }
+    background: #fff;
 
-  #left, #center {
-    float: left;
-  }
-
-  #left {
-    padding: 10px;
-    background: #bbb;
-    width: 15%;
-  }
-
-  #center {
-    padding-top: 0;
-    width: 70%;
-  }
-
-  #right {
-    padding: 10px;
-    background: #ddd;
-    float: right;
-    width: 15%;
+    /*
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    */
+    #left, #center, #right {
+      height: 100%;
+      min-height: 100%;
+      overflow-y: auto;
+      padding: @padding;
+      border-radius: 7px;
+    }
+    #left, #center {
+      float: left;
+    }
+    #left, #right {
+      background: #eee;
+      width: (100%-@mainWidth)/2;
+    }
+    #left {
+    }
+    #center {
+      width: @mainWidth;
+    }
+    #right {
+      float: right;
+    }
   }
 }
