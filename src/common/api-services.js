@@ -19,10 +19,10 @@ angular.module('odl.nbapi', [])
 }])
 
 
-.factory('FlowSvc', ['NBApiSvc', function (NBApiSvc) {
+.factory('FlowSvc', function (NBApiSvc) {
   var svc = {
     base: function(container) {
-      return NBApiSvc.base('flow', container);
+      return NBApiSvc.base('flowprogrammer', container);
     }
   };
 
@@ -35,17 +35,17 @@ angular.module('odl.nbapi', [])
   };
 
   svc.staticFlowUrl = function(container, nodeType, nodeId, name) {
-    return svc.base(container).one('node', nodeType).one(nodeId).one('static-flow', name);
+    return svc.base(container).one('node', nodeType).one(nodeId).one('staticFlow', name);
   };
 
   return svc;
-}])
+})
 
 
-.factory('SwitchSvc', ['NBApiSvc', function (NBApiSvc) {
+.factory('SwitchSvc', function (NBApiSvc) {
   var svc = {
     base: function(container) {
-      return NBApiSvc.base('switch', container);
+      return NBApiSvc.base('switchmanager', container);
     }
   };
 
@@ -60,10 +60,10 @@ angular.module('odl.nbapi', [])
   };
 
   return svc;
-}])
+})
 
 
-.factory('StaticRouteSvc', ['NBApiSvc', function (NBApiSvc) {
+.factory('StaticRouteSvc', function (NBApiSvc) {
   var svc = {
     base: function (container) {
       return NBApiSvc.base('staticroute', container);
@@ -71,7 +71,7 @@ angular.module('odl.nbapi', [])
   };
 
   svc.routesUrl = function (container) {
-    return svc.base(container);
+    return svc.base(container).all('routes');
   };
 
   svc.routeUrl = function (container, name) {
@@ -79,18 +79,18 @@ angular.module('odl.nbapi', [])
   };
 
   return svc;
-}])
+})
 
 
-.factory('SubnetSvc', ['NBApiSvc', function (NBApiSvc) {
+.factory('SubnetSvc', function (NBApiSvc) {
   var svc = {
     base: function (container) {
-      return NBApiSvc.base('subnet', container);
+      return NBApiSvc.base('subnetservice', container);
     }
   };
 
   svc.subnetsUrl = function (container) {
-    return svc.base(container).one('subnet', 'all');
+    return svc.base(container).all('subnets');
   };
 
   svc.subnetUrl = function (container, name) {
@@ -102,10 +102,10 @@ angular.module('odl.nbapi', [])
   };
 
   return svc;
-}])
+})
 
 
-.factory('TopologySvc', ['NBApiSvc', 'SwitchSvc', function (NBApiSvc, SwitchSvc) {
+.factory('TopologySvc', function (NBApiSvc, SwitchSvc) {
   var svc = {
     base: function (container) {
       return NBApiSvc.base('topology', container);
@@ -159,4 +159,4 @@ angular.module('odl.nbapi', [])
   };
 
   return svc;
-}]);
+});

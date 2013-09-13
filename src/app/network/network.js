@@ -1,6 +1,6 @@
 angular.module('odl.networking', [])
 
-.config(['$stateProvider', function ($stateProvider) {
+.config(function ($stateProvider) {
   $stateProvider.state('network', {
     templateUrl: 'network/index.tpl.html',
     url: '/network'
@@ -11,9 +11,9 @@ angular.module('odl.networking', [])
     views: {
       '': {
         templateUrl: 'network/staticroutes.tpl.html',
-        controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
+        controller: function ($scope, StaticRouteSvc) {
           $scope.data = StaticRouteSvc.routesUrl(null).getList();
-        }]
+        }
       }
     }
   });
@@ -23,15 +23,15 @@ angular.module('odl.networking', [])
     views: {
       '@network': {
         templateUrl: 'network/staticroutes.create.tpl.html',
-        controller: ['$scope', 'StaticRouteSvc', function ($scope, StaticRouteSvc) {
+        controller: function ($scope, StaticRouteSvc) {
           $scope.submit = function () {
-            StaticRouteSvc.routeUrl(null, $scope.data.name).post('', $scope.data).then(
+            StaticRouteSvc.routeUrl(null, $scope.data.name).customPUT($scope.data).then(
               function (data) {
                 $scope.$state.go('network.staticroutes');
               }
             );
           };
-        }]
+        }
       }
     }
   });
@@ -41,9 +41,9 @@ angular.module('odl.networking', [])
     views: {
       '': {
         templateUrl: 'network/subnets.tpl.html',
-        controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
+        controller: function ($scope, SubnetSvc) {
           $scope.data = SubnetSvc.subnetsUrl(null).getList();
-        }]
+        }
       }
     }
   });
@@ -53,17 +53,17 @@ angular.module('odl.networking', [])
     views: {
       '@network': {
         templateUrl: 'network/subnets.create.tpl.html',
-        controller: ['$scope', 'SubnetSvc', function ($scope, SubnetSvc) {
+        controller: function ($scope, SubnetSvc) {
           $scope.submit = function () {
-            SubnetSvc.subnetUrl(null, $scope.data.name).post('', $scope.data).then(
+            SubnetSvc.subnetUrl(null, $scope.data.name).customPUT($scope.data).then(
               function(data) {
                 $scope.$state.go('network.subnets');
               }
             );
           };
-        }]
+        }
       }
     }
   });
 
-}]);
+});

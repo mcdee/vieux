@@ -1,6 +1,6 @@
 angular.module('odl.flows', [])
 
-.controller('FlowCtrl', ['$scope', '$http', 'FlowSvc', 'SwitchSvc', function ($scope, $http, FlowSvc, SwitchSvc) {
+.controller('FlowCtrl', function ($scope, $http, FlowSvc, SwitchSvc) {
   // The current flow
   $scope.flow = {installInHw: true};
 
@@ -34,18 +34,18 @@ angular.module('odl.flows', [])
         $scope.$state.go('flows.list');
       });
   };
-}])
+})
 
 
 // Flow composition view controller
-.controller('FlowCompositionCtrl', ['$scope', function ($scope) {
+.controller('FlowCompositionCtrl', function ($scope) {
   $scope.$watch('actionActive', function(newValue, oldValue, scope) {
     $scope.flow.actions = newValue;
   });
-}])
+})
 
 
-.config(['$stateProvider', function ($stateProvider) {
+.config(function ($stateProvider) {
   $stateProvider.state('flows', {
     url: '/flows',
     templateUrl: 'flows/index.tpl.html',
@@ -59,11 +59,11 @@ angular.module('odl.flows', [])
     views: {
       '': {
         templateUrl: 'flows/list.tpl.html',
-        controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
+        controller: function ($scope, FlowSvc) {
           FlowSvc.flowsUrl().getList().then(function (data) {
             $scope.flows = data.flowConfig;
           });
-        }]
+        }
       }
     }
   });
@@ -88,13 +88,13 @@ angular.module('odl.flows', [])
     views: {
       '': {
         templateUrl: 'flows/node.tpl.html',
-        controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
+        controller: function ($scope, FlowSvc) {
           FlowSvc.nodeFlowsUrl('default', $scope.$stateParams.nodeType, $scope.$stateParams.nodeId).getList().then(
             function (data) {
               $scope.flows = data.flowConfig;
             }
           );
-        }]
+        }
       }
     }
   });
@@ -105,13 +105,13 @@ angular.module('odl.flows', [])
     views: {
       '': {
         templateUrl: 'flows/details.tpl.html',
-        controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
+        controller: function ($scope, FlowSvc) {
           FlowSvc.staticFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
             function (data) {
               $scope.flow = data;
             }
           );
-        }]
+        }
       }
     }
   });
@@ -122,9 +122,9 @@ angular.module('odl.flows', [])
     views: {
       '@flows.details': {
         templateUrl: 'flows/edit.tpl.html',
-        controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
-        }]
+        controller: function ($scope, FlowSvc) {
+        }
       }
     }
   });
-}]);
+});

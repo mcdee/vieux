@@ -1,10 +1,10 @@
 angular.module('odl.topology', [])
 
-.config(['$stateProvider', function($stateProvider) {
+.config(function($stateProvider) {
   $stateProvider.state('topology', {
     url: '/topology',
     templateUrl: 'topology/topology.tpl.html',
-    controller: ['$scope', 'TopologySvc', 'SwitchSvc', function ($scope, TopologySvc, SwitchSvc) {
+    controller: function ($scope, TopologySvc, SwitchSvc) {
       $scope.createTopology = function() {
         TopologySvc.getTopologyData(null, function(data) {
           $scope.topologyData = data;
@@ -16,7 +16,7 @@ angular.module('odl.topology', [])
         directed: false, multigraph: false, graph: [], nodes: [{"id": "one"}, {"id": "two"}, {"id": "three"}],
         links: [{"source": 0, "target": 1}, {"source": 0, "target": 2}]
       }*/
-    }]
+    }
   });
 
-}]);
+});

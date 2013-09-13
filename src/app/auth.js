@@ -66,7 +66,7 @@ Auth flow:
   factory.login = function (user, pw, cb, eb) {
     factory.setBasic(user, pw);
 
-    $http.get(config.endpoint + '/flow/default')
+    $http.get(config.endpoint + '/flowprogrammer/default')
       .success(function (data, status, headers, config) {
         factory.setUser({username: user});
         factory.unsetBasic();
