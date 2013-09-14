@@ -69,6 +69,16 @@ body, html {
   #left-cover {
     padding-right: 5px;
     #left {
+      .nav {
+          li {
+            a {
+              padding: 2px 15px;
+            }
+            .active {
+              background-color: #f7941e
+            }
+        }
+      }
     }
   }
   #center-cover {
@@ -88,6 +98,7 @@ body, html {
       min-height: 30px;
       background-image: linear-gradient(to bottom, #fff, #eee);
       margin: 0;
+      border-radius: 0px;
       .navbar-header {
         .navbar-brand {
           font-size: 1.0em;
@@ -107,6 +118,8 @@ body, html {
     }
     #submenu {
       min-height: 30px;
+      margin-bottom: 5px;
+      border-radius: 0px;
       .navbar-collapse {
         ul {
           li {
@@ -118,4 +131,20 @@ body, html {
       }
     }
   }
+}
+
+
+// Needed for topology
+circle.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+line.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+text {
+  font: 10px san-serif;
+  pointer-events: none;
 }
