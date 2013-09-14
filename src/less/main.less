@@ -4,20 +4,22 @@
 // style
 body, html {
   height: 100%;
+  background-image: linear-gradient(to bottom, #ffc427, #de5d2c);
 }
 
 #top {
   height: 28px;
-  background: #eee;
   #logo {
     font-weight: bold;
     letter-spacing: 0.1em;
     color: #444;
     float: left;
     margin-left: 20px;
-    padding: 3px 25px;
-    background: url('../assets/img/logo.png') left center no-repeat;
+    padding: 3px 15px 5px 40px;
+    background: url('../assets/img/logo.png') left 10px center no-repeat #fff;
     background-size: 20px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 0 15px #b99e57;
     span {
       color: #777;
     }
@@ -35,7 +37,10 @@ body, html {
 
   @padding: 7px;
   @offset: 5px;
-  background-image: linear-gradient(to bottom, #eee, #f7941e);
+  //background-image: linear-gradient(to bottom, #eee, #f7941e);
+  background-color: hsla(17%, 0, 33, 50%);
+
+  //border: 1px dotted #000;
 
   position: absolute;
   top: @bodyOffset+5px;
@@ -81,12 +86,6 @@ body, html {
       }
     }
   }
-  #center-cover {
-    width: @mainWidth;
-    #center {
-      padding: 0px;
-    }
-  }
   #right-cover {
     float: right;
     padding-left: 5px;
@@ -94,6 +93,10 @@ body, html {
     }
   }
   #center-cover {
+    width: @mainWidth;
+    #center {
+      padding: @padding;
+    }
     #menu {
       min-height: 30px;
       background-image: linear-gradient(to bottom, #fff, #eee);
