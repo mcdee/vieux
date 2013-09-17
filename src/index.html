@@ -37,12 +37,21 @@
   <div id="main" ng-if="authed">
     <div id="left-cover">
       <div id="left">
-        <ul class="nav nav-pills nav-stacked">
-          <li ng-class="{ active: $state.includes('nodes') }"><a ui-sref="nodes">Nodes</a></li>
-          <li ng-class="{ active: $state.includes('flows') }"><a ui-sref="flows.list">Flows</a></li>
-          <li ng-class="{ active: $state.includes('topology') }"><a ui-sref="topology">Topology</a></li>
-          <li ng-class="{ active: $state.includes('network') }"><a ui-sref="network">Networking</a></li>
-        </ul>
+        <div class="top pane">
+          <div class="title">Menu</div>
+          <ul class="nav nav-pills nav-stacked">
+            <li ng-class="{ active: $state.includes('nodes') }"><a ui-sref="nodes">Nodes</a></li>
+            <li ng-class="{ active: $state.includes('flows') }"><a ui-sref="flows.list">Flows</a></li>
+            <li ng-class="{ active: $state.includes('topology') }"><a ui-sref="topology">Topology</a></li>
+            <li ng-class="{ active: $state.includes('network') }"><a ui-sref="network">Networking</a></li>
+          </ul>
+        </div>
+        <div class="bottom pane">
+          <div class="title">Nodes</div>
+          <div class="entry">
+            <p>bottom</p>
+          </div>
+        </div>
       </div>
     </div>
 

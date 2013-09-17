@@ -74,14 +74,44 @@ body, html {
   #left-cover {
     padding-right: 5px;
     #left {
-      .nav {
+      .pane {
+        overflow-y: auto;
+      }
+      .top {
+        border-radius: 5px 5px 0 0;
+        height: 30%;
+        border: 1px solid #ccc;
+        .title {
+          background-image: linear-gradient(to bottom, #999, #555);
+          color: #fff;
+          font-weight: bold;
+          border-radius: 4px 4px 0 0;
+          padding: 2px 5px;
+        }
+        .nav {
+          margin: 10px;
           li {
             a {
-              padding: 2px 15px;
+              padding: 5px 15px;
             }
             .active {
               background-color: #f7941e
             }
+          }
+        }
+      }
+      .bottom {
+        height: 70%;
+        border: 1px solid #ccc;
+        border-top: none;
+        border-radius: 0 0 5px 5px;
+        .title {
+          background: #eee;
+          border-bottom: 1px solid #ccc;
+          padding: 2px 5px;
+        }
+        .entry {
+          margin: 10px;
         }
       }
     }
