@@ -48,8 +48,11 @@
         </div>
         <div class="bottom pane">
           <div class="title">Nodes</div>
-          <div class="entry">
-            <p>bottom</p>
+          <div id="submenu" class="navbar navbar-default">
+            <div class="collapse navbar-collapse ">
+              <ul class="nav navbar-nav">
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -58,23 +61,6 @@
     <!-- This is the "main" content div, it holds a contextual menu for the current view on the top and shows useful things underneith-->
     <div id="center-cover">
       <div id="center">
-
-        <!--
-        <div id="menu" class="navbar navbar-default" ng-show="authed">
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-            </ul>
-          </div>
-        </div>
-
-        <div id="submenu" class="navbar navbar-default">
-          <div class="collapse navbar-collapse ">
-            <ul class="nav navbar-nav">
-            </ul>
-          </div>
-        </div>
-        -->
-
         <div ui-view></div>
       </div>
     </div>
