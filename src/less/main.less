@@ -87,15 +87,23 @@ body, html {
           font-weight: bold;
           border-radius: 4px 4px 0 0;
           padding: 2px 5px;
+          border-bottom: 1px solid #ccc;
         }
         .nav {
-          margin: 10px;
           li {
             a {
               padding: 5px 15px;
+              &:hover {
+                border-radius: 0;
+              }
             }
-            .active {
-              background-color: #f7941e
+            margin: 0;
+          }
+          .active {
+            a {
+              background: #555;
+              color: #eee;
+              border-radius: 0;
             }
           }
         }
@@ -110,8 +118,9 @@ body, html {
           border-bottom: 1px solid #ccc;
           padding: 2px 5px;
         }
-        .entry {
+        #submenu {
           margin: 10px;
+          border: 1px dotted #000;
         }
       }
     }
@@ -126,42 +135,6 @@ body, html {
     width: @mainWidth;
     #center {
       padding: @padding;
-    }
-    #menu {
-      min-height: 30px;
-      background-image: linear-gradient(to bottom, #fff, #eee);
-      margin: 0;
-      border-radius: 0px;
-      .navbar-header {
-        .navbar-brand {
-          font-size: 1.0em;
-          margin: 0 10px;
-          padding: 5px 0 5px 30px;
-        }
-      }
-      .navbar-collapse {
-        ul {
-          li {
-            a {
-              padding: 5px 10px;
-            }
-          }
-        }
-      }
-    }
-    #submenu {
-      min-height: 30px;
-      margin-bottom: 5px;
-      border-radius: 0px;
-      .navbar-collapse {
-        ul {
-          li {
-            a {
-              padding: 5px 10px;
-            }
-          }
-        }
-      }
     }
   }
 }
