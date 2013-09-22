@@ -13,7 +13,12 @@ angular.module('odl.nodes', [])
   $stateProvider.state('nodes', {
     url: '/nodes',
     templateUrl: 'nodes/index.tpl.html',
-    controller: 'NodesCtrl'
+    views: {
+      'menu@': {
+        controller: function ($scope) {
+        }
+      }
+    }
   });
 
   $stateProvider.state('nodes.details', {

@@ -10,7 +10,9 @@ var opendaylight = angular.module('odl', [
   'ui.select2',
   'odl.nbapi',
   'odl.auth',
+  'odl.navigation',
   'odl.services',
+  'odl.directives.navigation',
   'odl.directives.general',
   'odl.directives.topology',
   'odl.flows',
@@ -51,9 +53,7 @@ var opendaylight = angular.module('odl', [
     },
     function (authed) {
       $rootScope.authed = authed;
-      if (authed) {
-        $rootScope.user = AuthService.getUser();
-      }
+      $rootScope.user = authed ? AuthService.getUser() : null;
     }
   );
 })

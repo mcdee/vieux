@@ -37,22 +37,27 @@
   <div id="main" ng-if="authed">
     <div id="left-cover">
       <div id="left">
-        <div class="top pane">
+        <div class="top pane" ng-controller="TopMenuController">
           <div class="title">Menu</div>
           <ul class="nav nav-pills nav-stacked">
-            <li ng-class="{ active: $state.includes('nodes') }"><a ui-sref="nodes">Nodes</a></li>
-            <li ng-class="{ active: $state.includes('flows') }"><a ui-sref="flows.list">Flows</a></li>
-            <li ng-class="{ active: $state.includes('topology') }"><a ui-sref="topology">Topology</a></li>
-            <li ng-class="{ active: $state.includes('network') }"><a ui-sref="network">Networking</a></li>
+            <li is-active state="nodes">
+              <brd-anchor label="Nodes" state="nodes"></brd-anchor>
+            </li>
+            <li is-active state="flows">
+              <brd-anchor label="Flows" state="flows.list"></brd-anchor>
+            <li>
+            <li is-active state="topology">
+              <brd-anchor label="Topology" state="topology"></brd-anchor>
+            </li>
+            <li is-active state="network">
+              <brd-anchor label="Network" state="network"></brd-anchor>
+            </li>
           </ul>
         </div>
-        <div class="bottom pane">
-          <div class="title">Nodes</div>
-          <div id="submenu" class="navbar navbar-default">
-            <div class="collapse navbar-collapse ">
-              <ul class="nav navbar-nav">
-              </ul>
-            </div>
+
+        <div class="bosttom pane" ng-controller="ItemsMenuCtrl">
+          <div ng-if="data">
+            <ng-include src="'items_menu.tpl.html'"></ng-include>
           </div>
         </div>
       </div>
@@ -76,3 +81,4 @@
   <div ng-if="!authed" ui-view></div>
 </body>
 </html>
+¡

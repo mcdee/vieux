@@ -9,7 +9,7 @@
       Displaying {{npData.length}} nodes<br/>
 
       <table class="table table-stripped">
-        <tbody ng-repeat="np in npData">
+        <tbody ng-repeat="np in npData.nodeProperties">
           <tr>
             <th scope="row">{{np.node.type}}/{{np.node.id}}</th>
             <td class="text-right"><a ui-sref="nodes.details({nodeId: np.node.id, nodeType: np.node.type})" class="btn btn-xs btn-primary">ports</a>

@@ -7,8 +7,22 @@
 
 angular.module('odl.nbapi', [])
 
-.factory('NBApiSvc', ['Restangular', function (Restangular) {
+// A Common way for getting items...
+.service('DataBroadcastSvc', function ($rootScope, $injector) {
   var svc = {};
+
+  // Broadcast data so that elements that subscribes to a given event can use it.
+  svc.broadcastData = function (data, key) {
+    $rootScope.$broadcast('event:data', data, key)
+  };
+
+  return svc;
+})
+
+.factory('NBApiSvc', function (Restangular, DataBroadcastSvc) {
+  var svc = {
+    broadcaster: DataBroadcastSvc
+  };
 
   svc.base = function(nbName, container) {
     container = container || 'default';
@@ -16,12 +30,11 @@ angular.module('odl.nbapi', [])
   };
 
   return svc;
-}])
-
+})
 
 .factory('FlowSvc', function (NBApiSvc) {
   var svc = {
-    base: function(container) {
+    base: function (container) {
       return NBApiSvc.base('flowprogrammer', container);
     }
   };
@@ -30,12 +43,20 @@ angular.module('odl.nbapi', [])
     return svc.base(container);
   };
 
-  svc.nodeFlowsUrl = function(container, nodeType, nodeId) {
+  svc.nodeFlowsUrl = function (container, nodeType, nodeId) {
     return svc.base(container).one('node', nodeType).one(nodeId);
   };
 
-  svc.staticFlowUrl = function(container, nodeType, nodeId, name) {
+  svc.staticFlowUrl = function (container, nodeType, nodeId, name) {
     return svc.base(container).one('node', nodeType).one(nodeId).one('staticFlow', name);
+  };
+
+  svc.itemMenuData = function (item) {
+    return {
+      data: {
+        nodeType: item.node.type, nodeId: item.node.type
+      }
+    };
   };
 
   return svc;
@@ -44,7 +65,7 @@ angular.module('odl.nbapi', [])
 
 .factory('SwitchSvc', function (NBApiSvc) {
   var svc = {
-    base: function(container) {
+    base: function (container) {
       return NBApiSvc.base('switchmanager', container);
     }
   };
@@ -55,9 +76,15 @@ angular.module('odl.nbapi', [])
   };
 
   // URL for a node
-  svc.nodeUrl = function(container, type, id) {
+  svc.nodeUrl = function (container, type, id) {
     return svc.base(container).one('node', type).one(id);
   };
+
+  svc.getNodes = function (container, cb) {
+    return svc.nodesUrl(container).getList().then(function (data) {
+      NBApiSvc.broadcaster.broadcastData(data, 'nodes')
+    })
+  }
 
   return svc;
 })
