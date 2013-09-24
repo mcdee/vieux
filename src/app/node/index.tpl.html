@@ -4,15 +4,17 @@
 }
 </style>
 <div class="container">
+
   <div class="row">
     <div class="col-md-5">
-      Displaying {{npData.length}} nodes<br/>
+
+      Displaying {{data.nodeProperties.length}} nodes<br/>
 
       <table class="table table-stripped">
-        <tbody ng-repeat="np in npData.nodeProperties">
+        <tbody ng-repeat="np in data.nodeProperties">
           <tr>
             <th scope="row">{{np.node.type}}/{{np.node.id}}</th>
-            <td class="text-right"><a ui-sref="nodes.details({nodeId: np.node.id, nodeType: np.node.type})" class="btn btn-xs btn-primary">ports</a>
+            <td class="text-right"><a ui-sref="node.details({nodeId: np.node.id, nodeType: np.node.type})" class="btn btn-xs btn-primary">ports</a>
               <a ui-sref="flows.node({nodeType: np.node.type, nodeId:np.node.id})" class="btn btn-xs btn-primary">flows</a>
             </td>
           </tr>

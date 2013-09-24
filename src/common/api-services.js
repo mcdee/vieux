@@ -51,12 +51,26 @@ angular.module('odl.nbapi', [])
     return svc.base(container).one('node', nodeType).one(nodeId).one('staticFlow', name);
   };
 
-  svc.itemMenuData = function (item) {
+  svc.getAll = function (container) {
+    svc.flowsUrl(container).getList().then(function (data) {
+      svc.data = data
+    })
+  }
+
+  svc.itemData = function (i) {
     return {
-      data: {
-        nodeType: item.node.type, nodeId: item.node.type
-      }
+      state: 'flow.details',
+      label: i.name,
+      params: {nodeId: i.node.id, nodeType: i.node.type, flowName: i.name},
     };
+  }
+
+  svc.itemsData = function (data_) {
+    var data = [];
+    angular.forEach(data_.flowConfig, function (value, key) {
+      data.push(svc.itemData(value))
+    });
+    return data
   };
 
   return svc;
@@ -67,7 +81,8 @@ angular.module('odl.nbapi', [])
   var svc = {
     base: function (container) {
       return NBApiSvc.base('switchmanager', container);
-    }
+    },
+    data: null
   };
 
   // URL for nodes
@@ -80,11 +95,27 @@ angular.module('odl.nbapi', [])
     return svc.base(container).one('node', type).one(id);
   };
 
-  svc.getNodes = function (container, cb) {
-    return svc.nodesUrl(container).getList().then(function (data) {
-      NBApiSvc.broadcaster.broadcastData(data, 'nodes')
-    })
+  svc.getAll = function (container) {
+    svc.nodesUrl(container).getList().then(function (data) {
+      svc.data = data
+    });
   }
+
+  svc.itemData = function (i) {
+    return {
+      state: 'nodes.details',
+      label: i.properties.description.value !== 'None' ? i.properties.description.value : i.node.type + '/' + i.node.id,
+      params: {nodeId: i.node.id, nodeType: i.node.type},
+    };
+  }
+
+  svc.itemsData = function (data_) {
+    var data = [];
+    angular.forEach(data_.nodeProperties, function (value, key) {
+      data.push(svc.itemData(value))
+    });
+    return data
+  };
 
   return svc;
 })

@@ -37,27 +37,38 @@
   <div id="main" ng-if="authed">
     <div id="left-cover">
       <div id="left">
-        <div class="top pane" ng-controller="TopMenuController">
-          <div class="title">Menu</div>
-          <ul class="nav nav-pills nav-stacked">
-            <li is-active state="nodes">
-              <brd-anchor label="Nodes" state="nodes"></brd-anchor>
-            </li>
-            <li is-active state="flows">
-              <brd-anchor label="Flows" state="flows.list"></brd-anchor>
-            <li>
-            <li is-active state="topology">
-              <brd-anchor label="Topology" state="topology"></brd-anchor>
-            </li>
-            <li is-active state="network">
-              <brd-anchor label="Network" state="network"></brd-anchor>
-            </li>
-          </ul>
-        </div>
+        <div ng-controller="NavigationCtrl">
+          <div class="top pane">
+            <div class="title">Menu</div>
+            <ul class="nav nav-pills nav-stacked">
+              <li is-active state="node">
+                <brd-anchor label="Nodes" state="node"></brd-anchor>
+              </li>
+              <li is-active state="flow">
+                <brd-anchor label="Flows" state="flow.list"></brd-anchor>
+              <li>
+              <li is-active state="topology">
+                <brd-anchor label="Topology" state="topology"></brd-anchor>
+              </li>
+              <li is-active state="network">
+                <brd-anchor label="Network" state="network"></brd-anchor>
+              </li>
+            </ul>
+          </div>
 
-        <div class="bottom pane" ng-controller="ItemsMenuCtrl">
-          <div ng-if="data">
-            <ng-include src="'items_menu.tpl.html'"></ng-include>
+          <div class="bottom pane">
+            <div ng-if="menu">
+              <div class="title">Nodes</div>
+              <div id="submenu" class="navbar navbar-default">
+                <div class="collapse navbar-collapse">
+                  <ul class="nav nav-tabs nav-stacked">
+                    <li ng-repeat="item in menu" class="{{item.node.id}}">
+                      <brd-anchor label="{{item.label}}" state="{{item.state}}" state-params="item.params"></brd-anchor>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

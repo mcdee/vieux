@@ -335,6 +335,7 @@ module.exports = function (grunt) {
       },
       dev: {
         options: {
+          hostname: '0.0.0.0',
           port: 9000,
           base: 'build'
         }

@@ -1,4 +1,4 @@
-angular.module('odl.flows', [])
+angular.module('odl.flow', [])
 
 .controller('FlowCtrl', function ($scope, $http, FlowSvc, SwitchSvc) {
   // The current flow
@@ -31,7 +31,7 @@ angular.module('odl.flows', [])
     FlowSvc.staticFlowUrl(null, $scope.flow.node.type, $scope.flow.node.id, $scope.flow.name)
       .customPUT($scope.flow)
       .then(function (data) {
-        $scope.$state.go('flows.list');
+        $scope.$state.go('flow.list');
       });
   };
 })
@@ -46,52 +46,52 @@ angular.module('odl.flows', [])
 
 
 .config(function ($stateProvider) {
-  $stateProvider.state('flows', {
-    url: '/flows',
-    templateUrl: 'flows/index.tpl.html',
+  $stateProvider.state('flow', {
+    url: '/flow',
+    templateUrl: 'flow/index.tpl.html',
     //template: '<ui-view></ui-view>',
     abstract: true
   });
 
-  // List all flows - independant of node.
-  $stateProvider.state('flows.list', {
+  // List all flow - independant of node.
+  $stateProvider.state('flow.list', {
     url: '/list',
     views: {
       '': {
-        templateUrl: 'flows/list.tpl.html',
+        templateUrl: 'flow/list.tpl.html',
         controller: function ($scope, FlowSvc) {
           FlowSvc.flowsUrl().getList().then(function (data) {
-            $scope.flows = data.flowConfig;
+            $scope.flow = data.flowConfig;
           });
         }
       }
     }
   });
 
-  $stateProvider.state('flows.create', {
+  $stateProvider.state('flow.create', {
     url: '/create',
     views: {
       '': {
-        templateUrl: 'flows/create.tpl.html',
+        templateUrl: 'flow/create.tpl.html',
         controller: 'FlowCtrl'
       },
-      'composer@flows.create': {
-        templateUrl: 'flows/composer.tpl.html',
+      'composer@flow.create': {
+        templateUrl: 'flow/composer.tpl.html',
         controller: 'FlowCompositionCtrl'
       },
     }
   });
 
-  // List the flows on a node
-  $stateProvider.state('flows.node', {
+  // List the flow on a node
+  $stateProvider.state('flow.node', {
     url: '/{nodeType}/{nodeId}',
     views: {
       '': {
-        templateUrl: 'flows/node.tpl.html',
+        templateUrl: 'flow/node.tpl.html',
         controller: function ($scope, FlowSvc) {
-          FlowSvc.nodeFlowsUrl('default', $scope.$stateParams.nodeType, $scope.$stateParams.nodeId).getList().then(
+          FlowSvc.nodeflowUrl('default', $scope.$stateParams.nodeType, $scope.$stateParams.nodeId).getList().then(
             function (data) {
-              $scope.flows = data.flowConfig;
+              $scope.flow = data.flowConfig;
             }
           );
         }
@@ -100,11 +100,11 @@ angular.module('odl.flows', [])
   });
 
   // Show details
-  $stateProvider.state('flows.details', {
+  $stateProvider.state('flow.details', {
     url: '/{nodeType}/{nodeId}/{flowName}',
     views: {
       '': {
-        templateUrl: 'flows/details.tpl.html',
+        templateUrl: 'flow/details.tpl.html',
         controller: function ($scope, FlowSvc) {
           FlowSvc.staticFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
             function (data) {
@@ -116,12 +116,12 @@ angular.module('odl.flows', [])
     }
   });
 
-  // Edit state which uses the '' view in flows.details
-  $stateProvider.state('flows.details.edit', {
+  // Edit state which uses the '' view in flow.details
+  $stateProvider.state('flow.details.edit', {
     url: '/edit',
     views: {
-      '@flows.details': {
-        templateUrl: 'flows/edit.tpl.html',
+      '@flow.details': {
+        templateUrl: 'flow/edit.tpl.html',
         controller: function ($scope, FlowSvc) {
         }
       }

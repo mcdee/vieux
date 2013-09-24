@@ -15,8 +15,8 @@ var opendaylight = angular.module('odl', [
   'odl.directives.navigation',
   'odl.directives.general',
   'odl.directives.topology',
-  'odl.flows',
-  'odl.nodes',
+  'odl.flow',
+  'odl.node',
   'odl.networking',
   'odl.topology'
 ])
