@@ -21,7 +21,7 @@
       <div class="form-group">
         <label for="ingressPort">Ingress Port</label>
         <select class="form-control input-sm" id="ingressPort" ui-select2 ng-model="flow.ingressPort"  ng-required="true" ng-disabled="!ncpData">
-          <option ng-repeat="ncp in ncpData.nodeConnectorProperties" value="{{ncp.nodeconnector.id}}">{{ncp.properties.name.value}}</option>
+          <option ng-repeat="ncp in ncpData.nodeConnectorProperties | noRootPorts | orderBy:'properties.name.value'" value="{{ncp.nodeconnector.id}}">{{ncp.properties.name.value}}</option>
         </select>
       </div>
 

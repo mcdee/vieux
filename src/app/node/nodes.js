@@ -12,12 +12,22 @@ angular.module('odl.node', [])
 .config(function ($stateProvider) {
   $stateProvider.state('node', {
     url: '/node',
+    abstract: true,
+    template: '<div ui-view></div>'
+  });
+
+  $stateProvider.state('node.list', {
+    url: '/list',
     views: {
       '': {
         templateUrl: 'node/index.tpl.html',
         controller: function ($scope, SwitchSvc) {
-          $scope.$watch(function () { return SwitchSvc.items; }, function (data) {
-            $scope.data = data
+          $scope.$watch(
+            function () {
+              return SwitchSvc.data;
+            },
+            function (data) {
+              $scope.data = data;
           });
         }
       }
@@ -31,6 +41,11 @@ angular.module('odl.node', [])
         templateUrl: 'node/details.tpl.html',
         controller: function ($scope, $stateParams, SwitchSvc) {
           $scope.ncpData = SwitchSvc.nodeUrl(null, $stateParams.nodeType, $stateParams.nodeId).get();
+
+          // Filter function to remove ports with id 0
+          $scope.portNotNull = function (property) {
+            return property.nodeconnector.id !== "0";
+          };
         }
       }
     }

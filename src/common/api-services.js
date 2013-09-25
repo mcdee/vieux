@@ -60,7 +60,7 @@ angular.module('odl.nbapi', [])
   svc.itemData = function (i) {
     return {
       state: 'flow.details',
-      label: i.name,
+      name: i.name,
       params: {nodeId: i.node.id, nodeType: i.node.type, flowName: i.name},
     };
   }
@@ -103,8 +103,8 @@ angular.module('odl.nbapi', [])
 
   svc.itemData = function (i) {
     return {
-      state: 'nodes.details',
-      label: i.properties.description.value !== 'None' ? i.properties.description.value : i.node.type + '/' + i.node.id,
+      state: 'node.details',
+      name: i.properties.description.value !== 'None' ? i.properties.description.value : i.node.type + '/' + i.node.id,
       params: {nodeId: i.node.id, nodeType: i.node.type},
     };
   }
