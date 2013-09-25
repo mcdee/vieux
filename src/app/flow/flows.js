@@ -1,5 +1,6 @@
 angular.module('odl.flow', [])
 
+
 .controller('FlowCtrl', function ($scope, $http, FlowSvc, SwitchSvc) {
   // The current flow
   $scope.flow = {installInHw: true};
