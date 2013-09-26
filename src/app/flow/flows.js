@@ -23,9 +23,12 @@ angular.module('vieux.flow', [])
 
     $scope.flow.node = {type: node[0], id: node[1]};
 
-    // Set nodeConnectorProperties for the selected node
+    /* Set nodeConnectorProperties for the selected node
+     *
+     * When a node is set the ingressPort should be cleared
+     */
     delete $scope.flow.ingressPort;
-    $scope.ncpData = SwitchSvc.nodeUrl(null, $scope.flow.node.type, $scope.flow.node.id).get();
+    $scope.nodeConnector = SwitchSvc.nodeUrl(null, $scope.flow.node.type, $scope.flow.node.id).get();
   };
 
   $scope.submit = function () {

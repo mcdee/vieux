@@ -7,26 +7,13 @@
 
 angular.module('vieux.nbapi', [])
 
-// A Common way for getting items...
-.service('DataBroadcastSvc', function ($rootScope, $injector) {
-  var svc = {};
-
-  // Broadcast data so that elements that subscribes to a given event can use it.
-  svc.broadcastData = function (data, key) {
-    $rootScope.$broadcast('event:data', data, key)
-  };
-
-  return svc;
-})
 
 .factory('NBApiSvc', function (Restangular, DataBroadcastSvc) {
   var svc = {
-    broadcaster: DataBroadcastSvc
-  };
-
-  svc.base = function(nbName, container) {
-    container = container || 'default';
-    return Restangular.one(nbName, container);
+    base: function(nbName, container) {
+      container = container || 'default';
+      return Restangular.one(nbName, container);
+    }
   };
 
   return svc;
@@ -53,9 +40,9 @@ angular.module('vieux.nbapi', [])
 
   svc.getAll = function (container) {
     svc.flowsUrl(container).getList().then(function (data) {
-      svc.data = data
-    })
-  }
+      svc.data = data;
+    });
+  };
 
   svc.itemData = function (i) {
     return {
@@ -63,14 +50,14 @@ angular.module('vieux.nbapi', [])
       name: i.name,
       params: {nodeId: i.node.id, nodeType: i.node.type, flowName: i.name},
     };
-  }
+  };
 
   svc.itemsData = function (data_) {
     var data = [];
     angular.forEach(data_.flowConfig, function (value, key) {
-      data.push(svc.itemData(value))
+      data.push(svc.itemData(value));
     });
-    return data
+    return data;
   };
 
   return svc;
@@ -97,24 +84,26 @@ angular.module('vieux.nbapi', [])
 
   svc.getAll = function (container) {
     svc.nodesUrl(container).getList().then(function (data) {
-      svc.data = data
+      svc.data = data;
     });
-  }
+  };
 
   svc.itemData = function (i) {
     return {
       state: 'node.details',
       name: i.properties.description.value !== 'None' ? i.properties.description.value : i.node.type + '/' + i.node.id,
-      params: {nodeId: i.node.id, nodeType: i.node.type},
+      params: {nodeId: i.node.id, nodeType: i.node.type}
     };
-  }
+  };
 
   svc.itemsData = function (data_) {
     var data = [];
+
     angular.forEach(data_.nodeProperties, function (value, key) {
-      data.push(svc.itemData(value))
+      data.push(svc.itemData(value));
     });
-    return data
+
+    return data;
   };
 
   return svc;

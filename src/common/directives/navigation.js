@@ -33,9 +33,9 @@ angular.module('vieux.directives.navigation', [])
         iElement.attr('ng-class', '{ ' + active  + ' }'); // Adding the ngClass
         iElement.removeAttr('is-active'); // Avoid infinite loop
         $compile(iElement)(scope);
-      }
+      };
     }
-  }
+  };
 })
 
 
@@ -67,7 +67,7 @@ angular.module('vieux.directives.navigation', [])
           url: $scope.url
         };
 
-        $rootScope.$broadcast('event:navigation', args)
+        $rootScope.$broadcast('event:navigation', args);
 
         if (!$scope.url && $scope.state) {
           var params = $scope.stateParams || {};

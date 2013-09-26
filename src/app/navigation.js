@@ -21,9 +21,9 @@ angular.module('vieux.navigation', [])
 
     var svcName;
     if (stateToServices[stateBase] !== undefined) {
-      svcName = stateToServices[stateBase]
+      svcName = stateToServices[stateBase];
     } else {
-      svcName = _.str.capitalize(stateBase) + 'Svc'
+      svcName = _.str.capitalize(stateBase) + 'Svc';
     }
 
 
@@ -52,13 +52,12 @@ angular.module('vieux.navigation', [])
   // A watcher, if $scope.svc and $scope.svc.data then we return the data else null
   $scope.$watch(
     function () {
-      return $scope.svc && $scope.svc.data ? $scope.svc.data : null
+      return $scope.svc && $scope.svc.data ? $scope.svc.data : null;
     },
     function(data) {
-      if (data)
-        $scope.menu = $scope.svc.itemsData(data)
+      if (data) {
+        $scope.menu = $scope.svc.itemsData(data);
+      }
     }
-  )
-
-
-})
+  );
+});
