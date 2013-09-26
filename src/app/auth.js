@@ -1,4 +1,4 @@
-angular.module('odl.auth', [])
+angular.module('vieux.auth', [])
 
 /*
 Auth flow:
@@ -51,16 +51,16 @@ Auth flow:
 
   // Return the current user object
   factory.getUser = function () {
-    var user = $cookieStore.get('odl.user') || null;
+    var user = $cookieStore.get('vieux.user') || null;
     return user;
   };
 
   factory.setUser = function (user) {
-    $cookieStore.put('odl.user', user);
+    $cookieStore.put('vieux.user', user);
   };
 
   factory.unsetUser = function() {
-    $cookieStore.remove('odl.user');
+    $cookieStore.remove('vieux.user');
   };
 
   factory.login = function (user, pw, cb, eb) {

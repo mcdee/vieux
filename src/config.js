@@ -10,12 +10,12 @@ var endpoint_path = '/controller/nb/v2';
 var endpoint_base = endpoint_proto + '://' + endpoint_host + ':' + endpoint_port;
 
 angular.element(document).ready(function () {
-        opendaylight.value('config', {
+        vieux.value('config', {
                 endpoint_base : endpoint_base,
                 endpoint : endpoint_base + endpoint_path
             });
-        opendaylight.config(['RestangularProvider', function(RestangularProvider) {
+        vieux.config(['RestangularProvider', function(RestangularProvider) {
           RestangularProvider.setBaseUrl(endpoint_base + endpoint_path);
         }]);
-        angular.bootstrap(document, ['odl']);
+        angular.bootstrap(document, ['vieux']);
     });

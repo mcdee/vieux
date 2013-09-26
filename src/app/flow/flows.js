@@ -1,4 +1,4 @@
-angular.module('odl.flow', [])
+angular.module('vieux.flow', [])
 
 
 .controller('FlowCtrl', function ($scope, $http, FlowSvc, SwitchSvc) {

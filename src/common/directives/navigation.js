@@ -1,4 +1,4 @@
-angular.module('odl.directives.navigation', [])
+angular.module('vieux.directives.navigation', [])
 
 /*
  * Helper to set CSS class to active via ng-class using $location.path()

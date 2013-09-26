@@ -1,25 +1,25 @@
 var noAuthRoutes = ['/login'];
 
 // Make sure to include the `ui.router` module as a dependency
-var opendaylight = angular.module('odl', [
+var vieux = angular.module('vieux', [
   'templates-app',
   'templates-common',
   'ngCookies',
   'restangular',
   'ui.router',
   'ui.select2',
-  'odl.nbapi',
-  'odl.auth',
-  'odl.navigation',
-  'odl.services',
-  'odl.filters',
-  'odl.directives.navigation',
-  'odl.directives.general',
-  'odl.directives.topology',
-  'odl.flow',
-  'odl.node',
-  'odl.networking',
-  'odl.topology'
+  'vieux.nbapi',
+  'vieux.auth',
+  'vieux.navigation',
+  'vieux.services',
+  'vieux.filters',
+  'vieux.directives.navigation',
+  'vieux.directives.general',
+  'vieux.directives.topology',
+  'vieux.flow',
+  'vieux.node',
+  'vieux.networking',
+  'vieux.topology'
 ])
 
 

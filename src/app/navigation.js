@@ -1,4 +1,4 @@
-angular.module('odl.navigation', [])
+angular.module('vieux.navigation', [])
 
 
 

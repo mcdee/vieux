@@ -5,7 +5,7 @@
     https://wiki..org/view/_Controller:REST_Reference_and_Authentication
 */
 
-angular.module('odl.nbapi', [])
+angular.module('vieux.nbapi', [])
 
 // A Common way for getting items...
 .service('DataBroadcastSvc', function ($rootScope, $injector) {

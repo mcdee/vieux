@@ -1,4 +1,4 @@
-angular.module('odl.filters', [])
+angular.module('vieux.filters', [])
 
 // Filter to return only valid ports (like id != 0)
 .filter('noRootPorts', function () {

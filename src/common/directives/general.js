@@ -1,4 +1,4 @@
-angular.module('odl.directives.general', [])
+angular.module('vieux.directives.general', [])
 
 .directive('stateIcon', function() {
     return {

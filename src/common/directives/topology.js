@@ -1,10 +1,10 @@
 /*
 Directive to create a simple topology
 
-Partially based on https://github.com/fredhsu/odl-scripts/tree/master/python/ from Fred Hsu and many angular bits.
+Partially based on https://github.com/fredhsu/vieux-scripts/tree/master/python/ from Fred Hsu and many angular bits.
 */
 
-angular.module('odl.directives.topology', [])
+angular.module('vieux.directives.topology', [])
 
 .directive('topologySimple', function() {
   // constants
@@ -22,7 +22,7 @@ angular.module('odl.directives.topology', [])
         .attr('width', width)
         .attr('height', height);
 
-      $scope.$watch('topologyData', function (newVal, odlVal) {
+      $scope.$watch('topologyData', function (newVal, vieuxVal) {
         svg.selectAll('*').remove();
 
         if(!newVal) {

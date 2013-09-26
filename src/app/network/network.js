@@ -1,4 +1,4 @@
-angular.module('odl.networking', [])
+angular.module('vieux.networking', [])
 
 .config(function ($stateProvider) {
   $stateProvider.state('network', {

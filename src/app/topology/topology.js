@@ -1,4 +1,4 @@
-angular.module('odl.topology', [])
+angular.module('vieux.topology', [])
 
 .config(function($stateProvider) {
   $stateProvider.state('topology', {

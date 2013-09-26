@@ -1,4 +1,4 @@
-angular.module('odl.node', [])
+angular.module('vieux.node', [])
 
 .controller('nodeCtrl', function($scope, SwitchSvc) {
   $scope.ncpData = {};

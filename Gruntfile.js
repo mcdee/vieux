@@ -28,7 +28,7 @@ module.exports = function (grunt) {
       '<%= compile_dir %>'
     ],
     copy: {
-      build_assets: {
+      build_app_assets: {
         files: [
           {
             src: [ '**' ],
@@ -37,6 +37,17 @@ module.exports = function (grunt) {
             expand: true
           }
         ]
+      },
+      build_vendor_assets: {
+        files: [
+          {
+            src: [ '<%= vendor_files.assets %>' ],
+            dest: '<%= build_dir %>/assets/',
+            cwd: '.',
+            expand: true,
+            flatten: true
+          }
+       ]
       },
       build_appjs: {
         files: [
@@ -92,6 +103,21 @@ module.exports = function (grunt) {
 
     // JS Tasks
     concat: {
+      /**
+       * The `build_css` target concatenates compiled CSS and vendor CSS
+       * together.
+       */
+      build_css: {
+        src: [
+          '<%= vendor_files.css %>',
+          '<%= recess.build.dest %>'
+        ],
+        dest: '<%= recess.build.dest %>'
+      },
+      /**
+       * The `compile_js` target is the concatenation of our application source
+       * code and all specified vendor source code into a single file.
+       */
       compile_js: {
         options: {
           banner: '<%= meta.banner %>'
@@ -104,7 +130,7 @@ module.exports = function (grunt) {
           '<%= html2js.common.dest %>',
           'module.suffix'
         ],
-        dest: '<%= compile_dir %>/assets/<%= pkg.name %>.js'
+        dest: '<%= compile_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     },
 
@@ -173,7 +199,7 @@ module.exports = function (grunt) {
     recess: {
       build: {
         src: [ '<%= app_files.less %>' ],
-        dest: '<%= build_dir %>/assets/<%= pkg.name %>.css',
+        dest: '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
         options: {
           compile: true,
           compress: false,
@@ -224,7 +250,7 @@ module.exports = function (grunt) {
         globals: {
           "angular": true,
           "document": true,
-          "opendaylight": true,
+          "vieux": true,
           "_": true,
           "require": true,
           "define": true,
@@ -282,6 +308,22 @@ module.exports = function (grunt) {
     },
 
     /**
+     * The Karma configurations.
+     */
+    karma: {
+      options: {
+        configFile: '<%= build_dir %>/karma-unit.js'
+      },
+      unit: {
+        runnerPort: 9101,
+        background: true
+      },
+      continuous: {
+        singleRun: true
+      }
+    },
+
+    /**
      * The `index` task compiles the `index.html` file as a Grunt template. CSS
      * and JS files co-exist here but they get split apart later.
      */
@@ -316,6 +358,22 @@ module.exports = function (grunt) {
           '<%= concat.compile_js.dest %>',
           '<%= vendor_files.css %>',
           '<%= recess.compile.dest %>'
+        ]
+      }
+    },
+
+    /**
+     * This task compiles the karma template so that changes to its file array
+     * don't have to be managed manually.
+     */
+    karmaconfig: {
+      unit: {
+        dir: '<%= build_dir %>',
+        src: [
+          '<%= vendor_files.js %>',
+          '<%= html2js.app.dest %>',
+          '<%= html2js.common.dest %>',
+          '<%= test_files.js %>'
         ]
       }
     },
@@ -428,7 +486,7 @@ module.exports = function (grunt) {
        */
       less: {
         files: [ 'src/**/*.less' ],
-        tasks: [ 'recess:build' ]
+        tasks: [ 'build_styles' ]
       },
 
       /**
@@ -475,7 +533,10 @@ module.exports = function (grunt) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'delta' ] );
+  grunt.registerTask('watch', [ 'build', 'delta' ] );
+
+  // task to do both vendor less compile and css concat.
+  grunt.registerTask('build_styles', ['recess:build', 'concat:build_css']);
 
   grunt.registerTask('live', ['build', 'connect:dev', 'open:dev', 'delta']);
 
@@ -488,17 +549,19 @@ module.exports = function (grunt) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'coffeelint', 'coffee','recess:build',
-    'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'copy:build_vendorassets',
-    'index:build',
+    'clean', 'html2js', 'coffeelint', 'coffee', 'build_styles',
+    'copy:build_app_assets', 'copy:build_vendor_assets',
+    'copy:build_appjs', 'copy:build_vendorjs', 'index:build'
   ]);
+   // 'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'copy:build_vendorassets',
+
 
   /**
    * The `compile` task gets your app ready for deployment by concatenating and
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'recess:compile', 'copy:compile_assets', 'ngmin', 'concat', 'uglify', 'index:compile'
+    'recess:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
   ]);
 
   /**
@@ -546,4 +609,24 @@ module.exports = function (grunt) {
       }
     });
   });
+
+  /**
+   * In order to avoid having to specify manually the files needed for karma to
+   * run, we use grunt to manage the list for us. The `karma/*` files are
+   * compiled as grunt templates for use by Karma. Yay!
+   */
+  grunt.registerMultiTask( 'karmaconfig', 'Process karma config templates', function () {
+    var jsFiles = filterForJS( this.filesSrc );
+
+    grunt.file.copy( 'karma/karma-unit.tpl.js', grunt.config( 'build_dir' ) + '/karma-unit.js', {
+      process: function ( contents, path ) {
+        return grunt.template.process( contents, {
+          data: {
+            scripts: jsFiles
+          }
+        });
+      }
+    });
+  });
+
 };
