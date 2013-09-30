@@ -34,11 +34,11 @@ angular.module('vieux.node', [])
     }
   });
 
-  $stateProvider.state('node.details', {
-    url: '/{nodeType}/{nodeId}',
+  $stateProvider.state('node.detail', {
+    url: '/{nodeType}/{nodeId}/etail',
     views: {
       '': {
-        templateUrl: 'node/details.tpl.html',
+        templateUrl: 'node/detail.tpl.html',
         controller: function ($scope, $stateParams, SwitchSvc) {
           $scope.ncpData = SwitchSvc.nodeUrl(null, $stateParams.nodeType, $stateParams.nodeId).get();
 

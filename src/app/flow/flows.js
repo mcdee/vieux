@@ -104,11 +104,11 @@ angular.module('vieux.flow', [])
   });
 
   // Show details
-  $stateProvider.state('flow.details', {
-    url: '/{nodeType}/{nodeId}/{flowName}',
+  $stateProvider.state('flow.detail', {
+    url: '/{nodeType}/{nodeId}/{flowName}/detail',
     views: {
       '': {
-        templateUrl: 'flow/details.tpl.html',
+        templateUrl: 'flow/detail.tpl.html',
         controller: function ($scope, FlowSvc) {
           FlowSvc.staticFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
             function (data) {
@@ -120,11 +120,11 @@ angular.module('vieux.flow', [])
     }
   });
 
-  // Edit state which uses the '' view in flow.details
-  $stateProvider.state('flow.details.edit', {
+  // Edit state which uses the '' view in flow.detail
+  $stateProvider.state('flow.detail.edit', {
     url: '/edit',
     views: {
-      '@flow.details': {
+      '@flow.detail': {
         templateUrl: 'flow/edit.tpl.html',
         controller: function ($scope, FlowSvc) {
         }

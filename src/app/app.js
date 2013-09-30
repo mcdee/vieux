@@ -16,6 +16,7 @@ var vieux = angular.module('vieux', [
   'vieux.directives.navigation',
   'vieux.directives.general',
   'vieux.directives.topology',
+  'vieux.container',
   'vieux.flow',
   'vieux.node',
   'vieux.networking',

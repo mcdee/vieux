@@ -91,12 +91,11 @@ angular.module('vieux.directives.navigation', [])
             'btnSize': '@size',
             'btnGlyph': '@glyph',
             'cancelFunc': '=function',
-            'toState': '@toState',
-            'toParams': '=toParams',
-            'state': '=state'
+            'state': '@',
+            'stateParams': '=',
         },
         template: '<button class="btn btn-{{size}} btn-danger" ng-click="doCancel()"><span class="glyphicon glyphicon-{{glyph}}"></span> {{label}}</button>',
-        controller: ['$scope', '$state', function ($scope, $state) {
+        controller: function ($scope, $state) {
           $scope.label = $scope.btnLabel || 'Cancel';
           $scope.size = $scope.btnSize || 'md';
           $scope.glyph = $scope.btnGlyph || 'remove-circle';
@@ -107,14 +106,10 @@ angular.module('vieux.directives.navigation', [])
               return;
             }
 
-            // This is ugly for now due to $state not being available unless passed
-            if ($scope.state && $scope.toState) {
-              var params = $scope.toParams || {};
-              $scope.state.transitionTo($scope.toState, {});
-              return;
-            }
+            var params = $scope.stateParams || {};
+            $state.go($scope.state, params);
           };
-        }]
+        }
     };
 })
 
@@ -128,11 +123,11 @@ angular.module('vieux.directives.navigation', [])
       'btnSize': '@size',
       'btnGlyph': '@glyph',
       'submitFunc': '=function',
-      'form': '=',
+      'form': '=form',
       'validator': '='
     },
     template: '<button class="btn btn-{{size}} btn-success" ng-click="doSubmit()" ng-disabled="submitDisabled"><span class="glyphicon glyphicon-{{glyph}}"></span> {{label}}</button>',
-    controller: ['$scope', function ($scope) {
+    controller: function ($scope) {
       $scope.label = $scope.btnLabel || 'Submit';
       $scope.size = $scope.btnSize || 'md';
       $scope.glyph = $scope.btnGlyph || 'ok-circle';
@@ -148,6 +143,7 @@ angular.module('vieux.directives.navigation', [])
       $scope.toggle = function (newVal) {
         $scope.submitDisabled = newVal ? false : true;
       };
+
 
       // Setup a watch for form.$valid if it's passed
       if (!$scope.validator && $scope.form) {
@@ -172,6 +168,6 @@ angular.module('vieux.directives.navigation', [])
       if (!$scope.form && !$scope.validator) {
         $scope.submitDisabled = false;
       }
-    }]
+    }
   };
 });

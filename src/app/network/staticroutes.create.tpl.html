@@ -1,5 +1,5 @@
 <div class="col-md-4">
- <form role="form" name="createStaticRoute">
+ <form role="form" name="createForm">
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" class="form-control input-sm control-label" ng-model="data.name" id="name" placeholder="Name" required>
@@ -16,8 +16,8 @@
       <input type="text" class="form-control input-sm control-label" ng-model="data.nextHop" id="name" placeholder="Next Hop - Example: 10.0.0.1" required>
     </div>
 
-    <button-submit form='createStaticRoute' function="submit"></button-submit>
-    <button-cancel state='$state' to-state="network.staticroutes"></button-cancel>
+    <button-submit form="createForm" function="submit"></button-submit>
+    <button-cancel state="network.staticroutes"></button-cancel>
   </form>
 
   <br/>

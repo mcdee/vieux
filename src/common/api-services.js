@@ -8,16 +8,55 @@
 angular.module('vieux.nbapi', [])
 
 
-.factory('NBApiSvc', function (Restangular, DataBroadcastSvc) {
+.factory('NBApiSvc', function (Restangular) {
   var svc = {
     base: function(nbName, container) {
       container = container || 'default';
       return Restangular.one(nbName, container);
-    }
+    },
+    rest: Restangular
   };
 
   return svc;
 })
+
+.factory('ContainerSvc', function(Restangular) {
+  var svc = {
+    base: function() {
+      return Restangular.one('containermanager');
+    },
+    data: null
+  };
+
+  svc.containersUrl = function() {
+    return svc.base().all('containers');
+  };
+
+  svc.containerUrl = function(container) {
+    return svc.base().one('container', container);
+  };
+
+  svc.getAll = function() {
+    svc.containersUrl().getList().then(function (data) {
+      svc.data = data;
+    });
+  };
+
+  svc.itemData = function (i) {
+    return {
+      state: 'container.detail',
+      params: {container: i.container},
+      name: i.container
+    };
+  };
+
+  svc.itemsData = function (data_) {
+    return data_['container-config'].map(svc.itemData);
+  };
+
+  return svc;
+})
+
 
 .factory('FlowSvc', function (NBApiSvc) {
   var svc = {
@@ -46,7 +85,7 @@ angular.module('vieux.nbapi', [])
 
   svc.itemData = function (i) {
     return {
-      state: 'flow.details',
+      state: 'flow.detail',
       name: i.name,
       params: {nodeId: i.node.id, nodeType: i.node.type, flowName: i.name},
     };
@@ -88,9 +127,13 @@ angular.module('vieux.nbapi', [])
     });
   };
 
+  svc.getConnectorProperties = function (container, type, id) {
+    return svc.nodeUrl(container, type, id).get();
+  };
+
   svc.itemData = function (i) {
     return {
-      state: 'node.details',
+      state: 'node.detail',
       name: i.properties.description.value !== 'None' ? i.properties.description.value : i.node.type + '/' + i.node.id,
       params: {nodeId: i.node.id, nodeType: i.node.type}
     };
